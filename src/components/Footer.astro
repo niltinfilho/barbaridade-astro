@@ -1,6 +1,8 @@
 ---
 import logoBarBaridade from "../assets/id/logo-bar-baridade-horizontal-original.svg";
 import bannerFooter from "../assets/banner-bar-baridade-footer.jpg";
+const bgImage = `url(${bannerFooter.src})`;
+import BtnDefault from "./shared/BtnDefault.astro";
 ---
 
 <footer>
@@ -11,7 +13,7 @@ import bannerFooter from "../assets/banner-bar-baridade-footer.jpg";
       melhor: boa música, bons drinks e boas risadas. Aqui, a sofisticação tem
       sabor, e o humor é o ingrediente secreto de cada receita.
     </p>
-    <a href="reserva.html" class="btn-default">Fazer reserva agora</a>
+    <BtnDefault label="Fazer reserva agora" />
   </section>
   <section class="info-footer container">
     <div class="flex info-footer-top">
@@ -46,13 +48,13 @@ import bannerFooter from "../assets/banner-bar-baridade-footer.jpg";
   </section>
 </footer>
 
-<style>
+<style define:vars={{ bgImage }}>
   footer {
     background-color: #0f0f0f;
 
     .cta-footer {
       padding: 96px 0;
-      background: url({bannerFooter.src}) center center no-repeat;
+      background: var(--bgImage) center center no-repeat;
       background-size: cover;
       text-align: center;
 

@@ -1,15 +1,13 @@
 ---
 import "../styles/global.css";
-import logoBarBaridade from '../assets/id/logo-bar-baridade-horizontal-original.svg';
+import logoBarBaridade from "../assets/id/logo-bar-baridade-horizontal-original.svg";
+import BtnDefault from "./shared/BtnDefault.astro";
 ---
 
 <header>
   <div class="container flex">
     <a href="index.html"
-      ><img
-        src={logoBarBaridade.src}
-        alt="Logo Bar-Baridade"
-      /></a
+      ><img src={logoBarBaridade.src} alt="Logo Bar-Baridade" /></a
     >
     <nav class="nav">
       <ul class="flex">
@@ -18,9 +16,7 @@ import logoBarBaridade from '../assets/id/logo-bar-baridade-horizontal-original.
         <li><a href="menu.html">Nosso Cardápio</a></li>
         <li><a href="calendario.html">Calendário de Eventos</a></li>
         <li>
-          <a href="reserva.html" class="btn-default nav-menu-button"
-            >Faça uma reserva</a
-          >
+          <BtnDefault label="Faça uma reserva" />
         </li>
       </ul>
     </nav>
