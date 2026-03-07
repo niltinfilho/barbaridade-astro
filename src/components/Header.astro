@@ -1,0 +1,157 @@
+---
+import "../styles/global.css";
+import logoBarBaridade from '../assets/id/logo-bar-baridade-horizontal-original.svg';
+---
+
+<header>
+  <div class="container flex">
+    <a href="index.html"
+      ><img
+        src={logoBarBaridade.src}
+        alt="Logo Bar-Baridade"
+      /></a
+    >
+    <nav class="nav">
+      <ul class="flex">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre o Bar</a></li>
+        <li><a href="menu.html">Nosso Cardápio</a></li>
+        <li><a href="calendario.html">Calendário de Eventos</a></li>
+        <li>
+          <a href="reserva.html" class="btn-default nav-menu-button"
+            >Faça uma reserva</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <div class="btn-menu-hamburger" onclick="openMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</header>
+
+<style>
+  header {
+    padding: 16px 0;
+    background-color: #000000df;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 4;
+
+    div {
+      justify-content: space-between;
+
+      img {
+        width: 240px;
+      }
+
+      ul {
+        a {
+          font-family: "Roboto", sans-serif;
+          font-weight: 600;
+          font-size: 16px;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: all 0.2s;
+          padding: 16px 24px;
+          color: var(--white);
+
+          &:hover {
+            color: var(--primary-color);
+          }
+        }
+
+        .nav-menu-button {
+          margin-left: 24px;
+        }
+      }
+
+      .btn-menu-hamburger {
+        display: none;
+
+        span {
+          display: block;
+          width: 20px;
+          height: 2px;
+          background-color: var(--white);
+          margin: 4px 0;
+          border-radius: 100%;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    header {
+      padding: 12px 16px;
+
+      div {
+        flex-direction: row;
+
+        img {
+          width: 140px;
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          left: 0;
+          top: 77px;
+          width: 100%;
+          padding: 40px;
+          background-color: var(--secondary-color);
+
+          ul {
+            flex-direction: column !important;
+            gap: 24px;
+
+            a {
+              font-size: 14px;
+            }
+          }
+
+          .nav-menu-button {
+            display: block;
+            margin-left: 0;
+          }
+        }
+
+        nav.open {
+          display: block;
+        }
+
+        .btn-menu-hamburger {
+          display: block;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 720px) {
+    header {
+      div {
+        flex-direction: row !important;
+
+        nav {
+          padding: 24px 0 40px;
+          background-color: var(--secondary-color);
+
+          ul {
+            gap: 16px;
+          }
+        }
+
+        nav.open {
+          display: block;
+        }
+
+        .btn-menu-hamburger {
+          display: block;
+        }
+      }
+    }
+  }
+</style>
