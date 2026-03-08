@@ -1,5 +1,9 @@
 ---
-const { label } = Astro.props;
+interface Props {
+  label: string;
+  ref?: string;
+}
+const { label, ref = "reserva" } = Astro.props;
 ---
 
-<a href="reserva.html" class="btn-default nav-menu-button">{label}</a>
+<a href={ref} class="btn-default nav-menu-button">{label}</a>
