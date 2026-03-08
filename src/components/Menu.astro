@@ -1,0 +1,209 @@
+---
+import "swiper/css/bundle";
+import BtnDefault from "./shared/BtnDefault.astro";
+
+const menuItens = [
+  {
+    title: "Bolinho de Costela",
+    description: "Crocante por fora, suculento por dentro",
+    imageUrl: "/src/assets/bolinho-de-costela.jpg",
+  },
+  {
+    title: "Burger da Casa",
+    description: "Blend artesanal, queijo brie e geleia de pimenta",
+    imageUrl: "/src/assets/burger-da-casa.jpg",
+  },
+  {
+    title: "Filé ao Molho",
+    description: "Corte alto com redução de vinho tinto",
+    imageUrl: "/src/assets/file-ao-molho.jpg",
+  },
+  {
+    title: "Iscas de Tilápia",
+    description: "Com molho tártaro artesanal",
+    imageUrl: "/src/assets/iscas-de-tilapia.jpg",
+  },
+  {
+    title: "Mini Pastéis Sortidos",
+    description: "Carne, queijo e palmito",
+    imageUrl: "/src/assets/mini-pasteis.jpg",
+  },
+  {
+    title: "Risoto ao Limão Siciliano",
+    description: "Leve, cremoso e marcante",
+    imageUrl: "/src/assets/risoto-de-limao.jpg",
+  },
+  {
+    title: "Tábua Bar-Baridade",
+    description: "Mix de queijo, frios e frutas secas",
+    imageUrl: "/src/assets/tabua-de-frios.jpg",
+  },
+];
+---
+
+<section id="menu">
+  <div class="container flex menu-section">
+    <h2>Destaques do Cardápio</h2>
+    <p>Bar-Baridade - Elegância o suficiente pra disfarçar o terceiro drink.</p>
+    <div class="swiper swiper-menu-section">
+      <div class="swiper-wrapper">
+        {
+          menuItens.map((item) => (
+            <>
+              <div class="swiper-slide">
+                <div>
+                  <img src={item.imageUrl} alt={item.description} />
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </div>
+            </>
+          ))
+        }
+      </div>
+    </div>
+    <BtnDefault label="Ver menu completo" ref="menu" colorScheme="secondary" />
+  </div>
+</section>
+
+<style>
+  #menu {
+    background-color: var(--primary-color);
+    padding: 96px 0;
+    text-align: center;
+
+    .menu-section {
+      flex-direction: column;
+
+      h2 {
+        font-size: 48px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        color: var(--secondary-color);
+      }
+      p {
+        color: var(--secondary-color);
+      }
+
+      .swiper-menu-section {
+        margin-top: 80px;
+        width: 1100px;
+        border-radius: 12px;
+
+        .swiper-wrapper {
+          align-items: stretch;
+        }
+
+        .swiper-slide {
+          div {
+            background-color: var(--secondary-color);
+            padding: 12px 12px 24px 12px;
+            border-radius: 12px;
+            width: fit-content;
+
+            img {
+              border-radius: 12px;
+            }
+
+            h3 {
+              font-size: 20px;
+              font-weight: 600;
+              color: var(--white);
+              margin-top: 20px;
+            }
+
+            p {
+              color: var(--white);
+              margin-top: 16px;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+
+      a {
+        display: block;
+        margin-top: 64px;
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    #menu {
+      padding: 64px 16px;
+
+      .menu-section {
+        h2 {
+          font-size: 36px;
+        }
+
+        .swiper-menu-section {
+          margin-top: 80px;
+          max-width: 1280px;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 720px) {
+    #menu {
+      padding: 64px 16px;
+
+      .menu-section {
+        h2 {
+          font-size: 24px;
+        }
+
+        .swiper-menu-section {
+          margin-top: 40px;
+          width: 288px;
+
+          .swiper-slide {
+            div {
+              img {
+                width: 100%;
+              }
+
+              h3 {
+                font-size: 18px;
+              }
+
+              p {
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper/bundle";
+  new Swiper(".swiper-menu-section", {
+    centeredSlides: true,
+    autoplay: {
+      delay: 2000,
+      disableOnInteraction: false,
+    },
+    loop: true,
+    grabCursor: true,
+    breakpoints: {
+      1280: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      },
+      720: {
+        slidesPerView: 2,
+        spaceBetween: 1,
+      },
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 1,
+      },
+    },
+  });
+</script>
