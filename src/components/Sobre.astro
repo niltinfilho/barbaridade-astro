@@ -37,7 +37,7 @@ const optimizedImages = await Promise.all(
         {
           optimizedImages.map((img) => (
             <div class="swiper-slide">
-              <div class="" style={`background-image: url(${img.src});`} />
+              <div style={`background-image: url(${img.src});`} />
             </div>
           ))
         }
@@ -155,6 +155,7 @@ const optimizedImages = await Promise.all(
   new Swiper(".swiper-about-section", {
     spaceBetween: 0,
     centeredSlides: false,
+    grabCursor: true,
     autoplay: {
       delay: 2500,
       disableOnInteraction: false,
