@@ -1,0 +1,164 @@
+---
+import "swiper/css/bundle";
+import { getImage } from "astro:assets";
+import BtnDefault from "./shared/BtnDefault.astro";
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/about/*.{jpeg,jpg,png,webp}",
+);
+
+const optimizedImages = await Promise.all(
+  Object.values(images).map(async (image) => {
+    const file = await image();
+    return await getImage({ src: file.default, format: "webp", width: 1920 });
+  }),
+);
+---
+
+<section id="about">
+  <div class="container flex about-section">
+    <div class="about-texts">
+      <h2>Desde 2015</h2>
+      <p>
+        O Bar-Baridade foi fundado em 2015, tornando-se rapidamente um ponto de
+        encontro tradicional para amigos e famílias. Com um ambiente
+        descontraído e acolhedor, o bar combina boa música, culinária de
+        qualidade e aquele atendimento que faz todo mundo se sentir em casa.
+      </p>
+      <p>
+        Ao longo dos anos, o Bar-Baridade se consolidou como um espaço de
+        celebração, onde cada visita é marcada por boas conversas, risadas e
+        momentos inesquecíveis. Um clássico que atravessa gerações, mantendo
+        viva a essência de um verdadeiro bar brasileiro.
+      </p>
+      <BtnDefault label="Como chegar" ref="#footer" />
+    </div>
+    <div class="swiper swiper-about-section">
+      <div class="swiper-wrapper">
+        {
+          optimizedImages.map((img) => (
+            <div class="swiper-slide">
+              <div class="" style={`background-image: url(${img.src});`} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #about {
+    background-color: var(--white);
+    padding: 96px 0;
+
+    .about-section {
+      gap: 80px;
+
+      .about-texts {
+        width: 560px;
+        color: var(--secondary-color);
+        text-align: center;
+
+        h2 {
+          font-size: 48px;
+          font-weight: 600;
+          text-transform: uppercase;
+          margin-bottom: 16px;
+        }
+
+        p {
+          margin-bottom: 16px;
+        }
+
+        a {
+          display: block;
+          width: fit-content;
+          margin: 40px auto 0;
+        }
+      }
+
+      .swiper-about-section {
+        .swiper-wrapper {
+          width: 640px;
+
+          .swiper-slide > div {
+            width: 640px;
+            height: 360px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    #about {
+      padding: 64px 16px;
+
+      .about-section {
+        flex-direction: column;
+        gap: 80px;
+
+        .about-texts {
+          width: 100%;
+
+          h2 {
+            font-size: 36px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 720px) {
+    #about {
+      padding: 64px 16px;
+
+      .about-section {
+        gap: 40px;
+
+        .about-texts {
+          h2 {
+            font-size: 24px;
+          }
+        }
+
+        .swiper-about-section {
+          .swiper-wrapper {
+            width: 300px;
+
+            .slider-about-1 {
+              width: 300px;
+              height: 169px;
+            }
+
+            .slider-about-2 {
+              width: 300px;
+              height: 169px;
+            }
+
+            .slider-about-3 {
+              width: 300px;
+              height: 169px;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper/bundle";
+  new Swiper(".swiper-about-section", {
+    spaceBetween: 0,
+    centeredSlides: false,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    loop: true,
+  });
+</script>
