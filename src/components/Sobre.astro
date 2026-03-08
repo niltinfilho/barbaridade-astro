@@ -1,17 +1,21 @@
 ---
 import "swiper/css/bundle";
-import { getImage } from "astro:assets";
 import BtnDefault from "./shared/BtnDefault.astro";
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/about/*.{jpeg,jpg,png,webp}",
-);
 
-const optimizedImages = await Promise.all(
-  Object.values(images).map(async (image) => {
-    const file = await image();
-    return await getImage({ src: file.default, format: "webp", width: 1920 });
-  }),
-);
+const images = [
+  {
+    imageUrl: "/src/assets/about/img-about-1.jpg",
+    description: "abc",
+  },
+  {
+    imageUrl: "/src/assets/about/img-about-2.jpg",
+    description: "abc",
+  },
+  {
+    imageUrl: "/src/assets/about/img-about-3.jpg",
+    description: "abc",
+  },
+];
 ---
 
 <section id="about">
@@ -35,9 +39,9 @@ const optimizedImages = await Promise.all(
     <div class="swiper swiper-about-section">
       <div class="swiper-wrapper">
         {
-          optimizedImages.map((img) => (
+          images.map((img) => (
             <div class="swiper-slide">
-              <div style={`background-image: url(${img.src});`} />
+              <img src={img.imageUrl} alt={img.description} />
             </div>
           ))
         }
@@ -78,16 +82,10 @@ const optimizedImages = await Promise.all(
       }
 
       .swiper-about-section {
+        border-radius: 12px;
+
         .swiper-wrapper {
           width: 640px;
-
-          .swiper-slide > div {
-            width: 640px;
-            height: 360px;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
-          }
         }
       }
     }
