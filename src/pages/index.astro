@@ -1,10 +1,306 @@
 ---
 import Menu from "../components/Menu.astro";
+import BtnDefault from "../components/shared/BtnDefault.astro";
 import Sobre from "../components/Sobre.astro";
 import Layout from "../layouts/Layout.astro";
+import imgHero1 from "../assets/banner-bar-baridade-1.jpg";
+import imgHero2 from "../assets/banner-bar-baridade-2.jpg";
+import imgHero3 from "../assets/banner-bar-baridade-3.jpg";
+import imgHero4 from "../assets/banner-bar-baridade-4.jpg";
+
+const images = [
+  {
+    imageUrl: `${imgHero1.src}`,
+    description: "abc",
+  },
+  {
+    imageUrl: `${imgHero2.src}`,
+    description: "abc",
+  },
+  {
+    imageUrl: `${imgHero3.src}`,
+    description: "abc",
+  },
+  {
+    imageUrl: `${imgHero4.src}`,
+    description: "abc",
+  },
+];
 ---
 
 <Layout pageTitle="O Único Lugar Onde o Charme é Destilado">
+  <section id="hero-section">
+    <div class="swiper swiper-hero-section">
+      <div class="swiper-wrapper">
+        {
+          images.map((img) => (
+            <div class="swiper-slide">
+              <div
+                class="swiper-img"
+                style={`background-image: url(${img.imageUrl});`}
+              />
+              <div class="swiper-overlay" />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div class="slider-text flex">
+      <h1>
+        O <span>ÚNICO</span> LUGAR <br />
+        ONDE O CHARME É <span>DESTILADO</span>
+      </h1>
+      <BtnDefault label="Reserve Agora" className="nav-menu-button" />
+      <p>Av. das Boas Noites, 123 – Bairro Alto da Lua, São Paulo – SP</p>
+    </div>
+  </section>
   <Sobre />
   <Menu />
 </Layout>
+
+<style>
+  #hero-section {
+    position: relative;
+
+    .swiper {
+      .swiper-img {
+        width: 100vw!;
+        height: 100vh;
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .swiper-overlay {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.93;
+        background-image: radial-gradient(
+          circle,
+          #000000c3,
+          #00000085
+        );
+      }
+    }
+
+    .slider-text {
+      position: absolute;
+      top: 35%;
+      width: 100%;
+      z-index: 3;
+      text-align: center;
+      flex-direction: column;
+      gap: 48px;
+      color: var(--white);
+
+      h1 {
+        font-size: 80px;
+        color: var(--white);
+      }
+
+      span {
+        color: var(--primary-color);
+      }
+
+      a {
+        padding: 16px 48px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .iframe-maps {
+    padding: 96px 0;
+    background-color: var(--white);
+
+    div {
+      max-width: 960px;
+      margin: 0 auto;
+
+      iframe {
+        border-radius: 12px;
+      }
+    }
+  }
+
+  #calendario-section {
+    width: 100%;
+
+    .img-calendario {
+      width: 50%;
+      height: 90vh;
+      background: url("../images/banda-tocando-no-bar.jpg") center center
+        no-repeat;
+      background-size: cover;
+    }
+
+    .text-calendario {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      h2 {
+        font-size: 48px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--primary-color);
+        margin-bottom: 12px;
+      }
+
+      h3 {
+        font-size: 32px;
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 70px;
+      }
+
+      .bandas-calendario {
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        align-items: flex-start;
+
+        div {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+
+          .calendario-banda-title {
+            font-weight: 600;
+            font-size: 20px;
+
+            span {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    #hero-section {
+      .slider-hero-1 {
+        height: 80vh !important;
+      }
+
+      .slider-hero-2 {
+        height: 80vh !important;
+      }
+
+      .slider-hero-3 {
+        height: 80vh !important;
+      }
+
+      .slider-hero-4 {
+        height: 80vh !important;
+      }
+
+      .slider-text {
+        top: 35%;
+        padding: 0 16px;
+
+        h1 {
+          font-size: 48px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+
+    #calendario-section {
+      flex-direction: column;
+
+      .img-calendario {
+        width: 100%;
+        height: 40vh;
+      }
+
+      .text-calendario {
+        width: 100%;
+        padding: 64px 16px;
+
+        h2 {
+          font-size: 36px;
+        }
+
+        h3 {
+          font-size: 24px;
+        }
+      }
+    }
+
+    .iframe-maps {
+      padding: 64px 16px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    #hero-section {
+      .slider-text {
+        top: 35%;
+        gap: 32px;
+
+        h1 {
+          font-size: 32px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+
+    #calendario-section {
+      .text-calendario {
+        h2 {
+          font-size: 24px;
+        }
+
+        h3 {
+          font-size: 18px;
+        }
+
+        .bandas-calendario {
+          div {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            .calendario-banda-title {
+              font-weight: 600;
+              font-size: 16px;
+            }
+
+            .calendario-banda-desc {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper/bundle";
+  new Swiper(".swiper-hero-section", {
+    spaceBetween: 0,
+    centeredSlides: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    loop: true,
+  });
+</script>
