@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import faviconBarBaridade from "../assets/id/favicon-bar-baridade-180x180.png";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 const { pageTitle } = Astro.props;
@@ -10,7 +11,7 @@ const { pageTitle } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" href="/favicon-bar-baridade-180x180.png" />
+    <link rel="icon" href=`${faviconBarBaridade.src}` />
     <meta name="generator" content={Astro.generator} />
     <title>Bar-Baridade | {pageTitle}</title>
   </head>

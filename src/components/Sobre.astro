@@ -1,18 +1,21 @@
 ---
 import "swiper/css/bundle";
+import imgAbout1 from "../assets/about/img-about-1.jpg";
+import imgAbout2 from "../assets/about/img-about-2.jpg";
+import imgAbout3 from "../assets/about/img-about-3.jpg";
 import BtnDefault from "./shared/BtnDefault.astro";
 
 const images = [
   {
-    imageUrl: "/src/assets/about/img-about-1.jpg",
+    imageUrl: `${imgAbout1.src}`,
     description: "abc",
   },
   {
-    imageUrl: "/src/assets/about/img-about-2.jpg",
+    imageUrl: `${imgAbout2.src}`,
     description: "abc",
   },
   {
-    imageUrl: "/src/assets/about/img-about-3.jpg",
+    imageUrl: `${imgAbout3.src}`,
     description: "abc",
   },
 ];

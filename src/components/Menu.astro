@@ -1,42 +1,49 @@
 ---
 import "swiper/css/bundle";
+import imgBolinhoCostela from "../assets/bolinho-de-costela.jpg";
+import imgBurgerDaCasa from "../assets/burger-da-casa.jpg";
+import imgFileAoMolho from "../assets/file-ao-molho.jpg";
+import imgIscasDeTilapia from "../assets/iscas-de-tilapia.jpg";
+import imgMiniPasteis from "../assets/mini-pasteis.jpg";
+import imgRisotoDeLimao from "../assets/risoto-de-limao.jpg";
+import imgTabuaDeFrios from "../assets/tabua-de-frios.jpg";
 import BtnDefault from "./shared/BtnDefault.astro";
 
 const menuItens = [
   {
     title: "Bolinho de Costela",
     description: "Crocante por fora, suculento por dentro",
-    imageUrl: "/src/assets/bolinho-de-costela.jpg",
+    imageUrl: `${imgBolinhoCostela.src}`,
   },
   {
     title: "Burger da Casa",
     description: "Blend artesanal, queijo brie e geleia de pimenta",
-    imageUrl: "/src/assets/burger-da-casa.jpg",
+    imageUrl: `${imgBurgerDaCasa.src}`,
   },
   {
     title: "Filé ao Molho",
     description: "Corte alto com redução de vinho tinto",
-    imageUrl: "/src/assets/file-ao-molho.jpg",
+    imageUrl: `${imgFileAoMolho.src}`,
   },
   {
     title: "Iscas de Tilápia",
     description: "Com molho tártaro artesanal",
-    imageUrl: "/src/assets/iscas-de-tilapia.jpg",
+    imageUrl: `${imgIscasDeTilapia.src}`,
   },
   {
     title: "Mini Pastéis Sortidos",
     description: "Carne, queijo e palmito",
-    imageUrl: "/src/assets/mini-pasteis.jpg",
+    imageUrl: `${imgMiniPasteis.src}`,
   },
   {
     title: "Risoto ao Limão Siciliano",
     description: "Leve, cremoso e marcante",
-    imageUrl: "/src/assets/risoto-de-limao.jpg",
+    imageUrl: `${imgRisotoDeLimao.src}`,
   },
   {
     title: "Tábua Bar-Baridade",
     description: "Mix de queijo, frios e frutas secas",
-    imageUrl: "/src/assets/tabua-de-frios.jpg",
+    imageUrl: `${imgTabuaDeFrios.src}`,
   },
 ];
 ---
