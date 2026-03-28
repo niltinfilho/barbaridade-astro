@@ -1,0 +1,67 @@
+---
+const { textTitle, textDescription } = Astro.props;
+import bannerImg from "../../assets/banner-bar-baridade.jpg";
+const img = `url(${bannerImg.src})`;
+---
+
+<section id="hero-subpages">
+  <h1 set:html={textTitle}></h1>
+  <p>{textDescription}</p>
+</section>
+
+<style define:vars={{ img }}>
+  #hero-subpages {
+    width: 100%;
+    padding: calc(120px + 20vh) 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    background: var(--img) center center no-repeat;
+    background-size: cover;
+    color: var(--white);
+
+    h1 {
+      font-size: 84px;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      span {
+        color: var(--primary-color);
+      }
+    }
+
+    p {
+      font-size: 18px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 1280px) {
+    #hero-subpages {
+      padding: calc(120px + 10vh) 16px;
+
+      h1 {
+        font-size: 40px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+
+  @media (max-width: 720px) {
+    #hero-subpages {
+      padding: calc(120px + 5vh) 16px;
+
+      h1 {
+        font-size: 36px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+</style>
