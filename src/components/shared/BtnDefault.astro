@@ -1,4 +1,6 @@
 ---
+const base = import.meta.env.BASE_URL;
+
 const {
   label,
   ref = "reserva",
@@ -7,7 +9,7 @@ const {
 } = Astro.props;
 ---
 
-<a href={ref} class={`btn-default btn-${colorScheme} ${className}`}>{label}</a>
+<a href={`${base}/${ref}`} class={`btn-default btn-${colorScheme} ${className}`}>{label}</a>
 
 <style>
   .btn-default {

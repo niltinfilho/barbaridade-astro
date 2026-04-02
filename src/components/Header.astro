@@ -6,7 +6,9 @@ const base = import.meta.env.BASE_URL;
 
 <header>
   <div class="container flex">
-    <a href="/"><img src={logoBarBaridade.src} alt="Logo Bar-Baridade" /></a>
+    <a href={`${base}/`}
+      ><img src={logoBarBaridade.src} alt="Logo Bar-Baridade" /></a
+    >
     <nav class="nav">
       <ul class="flex">
         <li><a href={`${base}/`}>Início</a></li>

@@ -3,6 +3,7 @@ import BtnDefault from "./shared/BtnDefault.astro";
 import logoBarBaridade from "../assets/id/logo-bar-baridade-horizontal-original.svg";
 import bannerFooter from "../assets/banner-bar-baridade-footer.jpg";
 const bgImage = `url(${bannerFooter.src})`;
+const base = import.meta.env.BASE_URL;
 ---
 
 <footer id="footer">
@@ -32,15 +33,15 @@ const bgImage = `url(${bannerFooter.src})`;
       <div>
         <h2>Links Importantes</h2>
         <ul>
-          <li><a href="sobre">Sobre</a></li>
-          <li><a href="menu">Menu</a></li>
-          <li><a href="calendario">Calendário</a></li>
-          <li><a href="reserva">Fazer reserva</a></li>
+          <li><a href={`${base}/sobre`}>Sobre</a></li>
+          <li><a href={`${base}/menu`}>Menu</a></li>
+          <li><a href={`${base}/calendario`}>Calendário</a></li>
+          <li><a href={`${base}/reserva`}>Fazer reserva</a></li>
         </ul>
       </div>
     </div>
     <div class="flex info-footer-bottom">
-      <p>&copy; 2025 Bar-Baridade. Todos os direitos reservados.</p>
+      <p>&copy; 2026 Bar-Baridade. Todos os direitos reservados.</p>
       <p>
         <a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a>
       </p>
