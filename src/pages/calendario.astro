@@ -1,0 +1,155 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroSubpages from "../components/shared/hero-subpages.astro";
+import BtnDefault from "../components/shared/BtnDefault.astro";
+import jazz from "../assets/jazz.png";
+import vintage from "../assets/vintage-82.png";
+import marina from "../assets/marina-e-os-destemperados.jpg";
+import solar from "../assets/solar-groove.jpg";
+import rock from "../assets/rock-da-madrugada.jpg";
+import samba from "../assets/samba-simbora.png";
+---
+
+<Layout pageTitle="Calendário">
+    <HeroSubpages
+        textTitle="Calendário <span>de Eventos</span>"
+        textDescription="Fique por dentro da nossa programação e não perca nenhuma noite inesquecível no Bar-Baridade."
+    />
+    <section>
+        <div class="show-section flex">
+            <img src={jazz.src} alt="Jazz" />
+
+            <div class="show-text flex">
+                <h2>6 de Dezembro • "Os Bons de Copo"</h2>
+                <p>
+                    Jazz, bossa e improviso pra quem entende que ritmo também se
+                    bebe.
+                </p>
+                <BtnDefault label="Fazer Reserva" className="nav-menu-button" />
+            </div>
+        </div>
+
+        <div class="show-section flex">
+            <img src={vintage.src} alt="Vintage 82" />
+
+            <div class="show-text flex">
+                <h2>7 de Dezembro • "Vintage 82"</h2>
+                <p>
+                    Rock clássico com alma jovem e solos que combinam com whisky
+                    on the rocks.
+                </p>
+                <BtnDefault label="Fazer Reserva" className="nav-menu-button" />
+            </div>
+        </div>
+
+        <div class="show-section flex">
+            <img src={marina.src} alt="Marina & Os Destemperados" />
+
+            <div class="show-text flex">
+                <h2>8 de Dezembro • "Marina & Os Destemperados"</h2>
+                <p>MPB moderna e risadas entre um gole e outro.</p>
+                <BtnDefault label="Fazer Reserva" className="nav-menu-button" />
+            </div>
+        </div>
+        <div class="show-section flex">
+            <img src={solar.src} alt="Banda Solar Groove" />
+
+            <div class="show-text flex">
+                <h2>13 de Dezembro • "Banda Solar Groove"</h2>
+                <p>
+                    Uma mistura de soul, funk e jazz que transforma qualquer
+                    noite em uma celebração.
+                </p>
+                <BtnDefault label="Fazer Reserva" className="nav-menu-button" />
+            </div>
+        </div>
+
+        <div class="show-section flex">
+            <img src={rock.src} alt="Rock da Madrugada" />
+
+            <div class="show-text flex">
+                <h2>14 de Dezembro • "Rock da Madrugada"</h2>
+                <p>
+                    Clássicos do rock com uma pegada moderna e cheia de energia.
+                </p>
+                <BtnDefault label="Fazer Reserva" className="nav-menu-button" />
+            </div>
+        </div>
+
+        <div class="show-section flex">
+            <img src={samba.src} alt="Samba Simbora" />
+
+            <div class="show-text flex">
+                <h2>15 de Dezembro • "Samba Simbora"</h2>
+                <p>
+                    Autenticidade e ritmo contagiante com sambas clássicos e
+                    autorais.
+                </p>
+                <BtnDefault label="Fazer Reserva" className="nav-menu-button" />
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .show-section {
+        justify-content: center;
+        gap: 40px;
+        padding: 64px 0;
+        background-color: var(--white);
+
+        img {
+            max-width: 540px;
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .show-text {
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            max-width: 540px;
+
+            h2 {
+                margin-top: 0;
+                color: #333;
+            }
+
+            p {
+                font-size: 16px;
+                color: #555;
+            }
+        }
+    }
+
+    .show-section:nth-child(even) {
+        flex-direction: row-reverse;
+        background-color: var(--light-grey);
+    }
+
+    @media (max-width: 1280px) {
+        .show-section {
+            flex-direction: column;
+            gap: 40px;
+            padding: 64px 16px;
+
+            .show-text {
+                max-width: 100%;
+            }
+        }
+
+        .show-section:nth-child(even) {
+            flex-direction: column;
+            gap: 40px;
+            padding: 64px 16px;
+        }
+    }
+
+    @media (max-width: 720px) {
+        .show-section {
+            img {
+                max-width: 320px;
+            }
+        }
+    }
+</style>

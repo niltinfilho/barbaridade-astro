@@ -1,0 +1,113 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Menu from "../components/Menu.astro";
+import HeroSubpages from "../components/shared/hero-subpages.astro";
+import imgAbout1 from "../assets/about/img-about-1.jpg";
+import imgAbout3 from "../assets/about/img-about-3.jpg";
+---
+
+<Layout pageTitle="Sobre">
+  <HeroSubpages
+    textTitle="Sobre <span>o Bar-Baridade</span>"
+    textDescription="Um brinde à boa conversa, ao riso fácil e à elegância sem exageros."
+  />
+  <section id="about-section">
+    <div class="container flex about-content-wrapper">
+      <div class="about-content flex">
+        <img src={imgAbout1.src} alt="" />
+        <div>
+          <p>
+            O Bar Baridade nasceu de uma ideia simples: unir o prazer de uma boa
+            bebida à leveza de quem sabe aproveitar a vida com estilo, mas sem
+            pressa. Criado por amigos apaixonados por música, gastronomia e boas
+            histórias, o bar rapidamente se tornou um ponto de encontro para
+            quem busca mais do que apenas um copo cheio: aqui, cada drink tem
+            personalidade e cada noite tem um charme próprio.
+          </p>
+          <br />
+          <p>
+            Desde sua inauguração, o Bar Baridade mistura sofisticação e
+            descontração na medida certa. O ambiente combina iluminação
+            aconchegante, música ao vivo e uma carta de drinks autorais que
+            brinca com o paladar (e com a ironia). Nosso lema é simples:
+            “Elegância o suficiente pra disfarçar o terceiro drink.”
+          </p>
+        </div>
+      </div>
+      <div class="about-content flex">
+        <div>
+          <p>
+            A casa valoriza o artesanato em cada detalhe: dos ingredientes
+            selecionados à curadoria musical, tudo é pensado para criar uma
+            experiência memorável. No palco, bandas locais e regionais trazem
+            estilos que vão do jazz e MPB ao rock clássico e blues moderno —
+            sempre com o toque Baridade de autenticidade e bom humor.
+          </p>
+          <br />
+          <p>
+            Mais do que um bar, o Bar Baridade é um refúgio para quem aprecia o
+            prazer de estar presente. Um lugar para celebrar encontros, brindar
+            conquistas e rir das pequenas tragédias cotidianas — com um bom
+            drink na mão, é claro.
+          </p>
+        </div>
+        <img src={imgAbout3.src} alt="" />
+      </div>
+    </div>
+  </section>
+  <Menu />
+</Layout>
+
+<style>
+  #about-section {
+    background-color: var(--white);
+    padding: 96px 0;
+
+    .about-content-wrapper {
+      flex-direction: column;
+      gap: 96px;
+
+      .about-content {
+        gap: 80px;
+        text-align: center;
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    #about-section {
+      padding: 64px 16px;
+
+      .about-content-wrapper {
+        gap: 80px;
+
+        .about-content {
+          gap: 40px;
+          flex-direction: column;
+
+          img {
+            max-width: 1260px;
+            width: 100%;
+          }
+        }
+
+        .about-content:nth-child(2) {
+          flex-direction: column-reverse;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 720px) {
+    #about-section {
+      .about-content-wrapper {
+        flex-direction: column;
+        gap: 40px;
+
+        img {
+          max-width: 300px;
+        }
+      }
+    }
+  }
+</style>
