@@ -1,5 +1,10 @@
 ---
-const { label, ref = "reserva", colorScheme = "primary", className } = Astro.props;
+const {
+  label,
+  ref = "reserva",
+  colorScheme = "primary",
+  className,
+} = Astro.props;
 ---
 
 <a href={ref} class={`btn-default btn-${colorScheme} ${className}`}>{label}</a>
