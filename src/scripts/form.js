@@ -21,12 +21,12 @@ let validacoes = {
 
 function setError(index) {
   campos[index].style.border = "2px solid red";
-  spans[index].style.display = "block";
+  if (spans[index]) spans[index].style.display = "block";
 }
 
 function removeError(index) {
   campos[index].style.border = "";
-  spans[index].style.display = "none";
+  if (spans[index]) spans[index].style.display = "none";
 }
 
 function isValidDateReal(dateString) {
@@ -64,7 +64,6 @@ function nameValidate() {
 }
 
 function telefoneValidate() {
-  // Esta linha agora limpa letras e símbolos instantaneamente do campo
   telefoneInput.value = telefoneInput.value.replace(/\D/g, "");
   
   const cleanValue = telefoneInput.value;
@@ -104,12 +103,12 @@ function numeroValidate() {
   if (numeroInput.value !== "" && numeroInput.value < 1) {
     numeroInput.value = 1;
   }
+
   const val = parseInt(numeroInput.value);
   if (!isNaN(val) && val >= 1) {
     removeError(4);
     validacoes.numero = true;
   } else {
-    if (numeroInput.value.length > 0) setError(4);
     validacoes.numero = false;
   }
   validaTodosCampos();
