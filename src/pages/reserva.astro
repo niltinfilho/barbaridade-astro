@@ -5,6 +5,8 @@ import Sobre from "../components/Sobre.astro";
 import Menu from "../components/Menu.astro";
 ---
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
 <Layout pageTitle="Reserva">
   <HeroSubpages
     textTitle="Faça sua <span>reserva</span> agora"
@@ -18,7 +20,7 @@ import Menu from "../components/Menu.astro";
         <p>
           Porque algumas noites merecem ser planejadas (e brindadas com estilo).
         </p>
-        <form class="flex" id="form">
+        <form method="post" class="flex" id="form">
           <div>
             <label for="name">Nome completo*</label>
             <input
@@ -82,12 +84,7 @@ import Menu from "../components/Menu.astro";
             </div>
           </div>
           <div>
-            <button
-              id="button"
-              type="button"
-              class="disabled"
-              disabled
-            >
+            <button type="submit">
               Confirmar reserva
             </button>
           </div>
@@ -301,5 +298,5 @@ import Menu from "../components/Menu.astro";
 </style>
 
 <script>
-  import "../scripts/form.js";
+  import "../scripts/email.js";
 </script>
