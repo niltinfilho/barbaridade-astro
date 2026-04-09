@@ -1,0 +1,278 @@
+---
+import LayoutPainel from "../../../layouts/LayoutPainel.astro";
+import type { ItemMenu, Categoria, FormDataCadastrar } from "@types";
+export const prerender = false;
+const { uuid } = Astro.params;
+const apiUrl = import.meta.env.PUBLIC_API_URL;
+const itemMenuResponse = await fetch(`${apiUrl}/menu-item/${uuid}`);
+const itemMenuData: ItemMenu = await itemMenuResponse.json();
+
+const categoriasResponse = await fetch(`${apiUrl}/enums/categorias-item-menu`);
+const categoriasData: Categoria[] = await categoriasResponse.json();
+---
+
+<LayoutPainel pageTitle=`Editar item '${itemMenuData.nome}'`>
+  <section id="editar-item-section">
+    <div class="container flex form-wrapper">
+      <div class="img-form"></div>
+      <div class="form-content">
+        <h1>Editar item de menu</h1>
+        <p>Deixe os sabores ainda mais atraentes.</p>
+        <form class="flex" id="painel-form-editar">
+          <div>
+            <label for="name">Nome</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={itemMenuData.nome}
+              class="inputs required"
+            />
+            <span class="span-required">
+              O nome deve ter no mínimo 3 caracteres
+            </span>
+          </div>
+          <div>
+            <label for="description">Descrição</label>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              value={itemMenuData.descricao}
+              class="inputs required"
+            />
+            <span class="span-required">
+              A descrição deve ter no mínimo 8 caracteres
+            </span>
+          </div>
+          <div class="form-two-columns flex">
+            <div>
+              <label for="category">Categoria</label>
+              <select name="category" id="category">
+                <option value={itemMenuData.categoria} selected>
+                  {itemMenuData.descricaoCategoria}
+                </option>
+                {
+                  categoriasData.map((categoria) => (
+                    <option value={categoria.valor}>
+                      {categoria.descricao}
+                    </option>
+                  ))
+                }
+              </select>
+              <span class="span-required"> A imagem deve ser válida </span>
+            </div>
+            <div>
+              <div class="flex gap-4 items-end"></div>
+              <label for="image">Imagem selecionada</label>
+              <img
+                src={`${itemMenuData.base64Image}`}
+                alt={itemMenuData.descricaoAltImage}
+                id="image-preview"
+              />
+              <input
+                type="file"
+                name="image"
+                id="image"
+                class="inputs required"
+              />
+              <span class="span-required"> A imagem deve ser válida </span>
+            </div>
+          </div>
+          <div>
+            <label for="alt-description">Descrição alt da imagem*</label>
+            <input
+              type="text"
+              name="alt-description"
+              id="alt-description"
+              value={itemMenuData.descricaoAltImage}
+              class="inputs required"
+            />
+            <span class="span-required">
+              A descrição alt da imagem deve ter no mínimo 10 caracteres
+            </span>
+          </div>
+          <div>
+            <button id="button" type="button"> Editar item </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</LayoutPainel>
+
+<style>
+  #editar-item-section {
+    background-color: var(--primary-color);
+    padding: 96px 0;
+
+    .form-wrapper {
+      background-color: var(--light-grey);
+      border-radius: 12px;
+
+      .img-form {
+        background: url("../../../assets/about/img-about-3.jpg") center center
+          no-repeat;
+        background-size: cover;
+        width: 640px;
+        height: 600px;
+        border-radius: 12px 0 0 12px;
+      }
+
+      .form-content {
+        padding: 0 32px;
+        width: 50%;
+
+        h2 {
+          font-size: 20px;
+          font-weight: 600;
+          margin-bottom: 12px;
+        }
+
+        form {
+          margin-top: 24px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 24px;
+
+          .form-two-columns {
+            gap: 40px;
+
+            div {
+              width: 50%;
+            }
+          }
+
+          div {
+            width: 100%;
+
+            label {
+              display: block;
+              margin-bottom: 8px;
+            }
+
+            input,
+            select {
+              width: 100%;
+              padding: 12px;
+              border: 2px solid var(--medium-grey);
+              border-radius: 12px;
+              background-color: var(--medium-grey);
+              font-size: 16px;
+              font-family: Roboto;
+
+              &:focus {
+                outline: none;
+              }
+            }
+
+            select {
+              cursor: pointer;
+              appearance: none;
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234b5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+              background-repeat: no-repeat;
+              background-position: right 12px center;
+              background-size: 16px;
+              transition: all 0.2s ease;
+            }
+
+            span {
+              display: none;
+              margin: 6px 0 0 3px;
+              color: red;
+              font-size: 12px;
+            }
+
+            button {
+              width: 100%;
+              padding: 16px;
+              border-radius: 12px;
+              border: none;
+              background-color: var(--secondary-color);
+              color: var(--white);
+              text-transform: uppercase;
+              font-weight: 600;
+              font-size: 18px;
+              font-family: Roboto;
+              transition: all 0.2s;
+              cursor: pointer;
+            }
+
+            button:hover {
+              background-color: var(--primary-color);
+              color: var(--secondary-color);
+            }
+
+            button.disabled {
+              opacity: 0.6;
+              cursor: not-allowed;
+            }
+
+            button.disabled:hover {
+              background-color: var(--red);
+              color: var(--white);
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import type { FormDataCadastrar } from "@types";
+  const apiUrl = import.meta.env.PUBLIC_API_URL;
+  const imgInput = document.getElementById("image") as HTMLInputElement;
+
+  imgInput.addEventListener("input", async () => {
+    const arquivo = imgInput.files?.[0];
+    console.log("chamou!");
+    console.log(arquivo);
+    if (!arquivo) {
+      alert("Selecione uma imagem!");
+      return;
+    }
+    const base64 = await converterParaBase64(arquivo);
+    const imgPreview: any = document.getElementById("image-preview");
+    imgPreview.src = base64;
+  });
+
+  document
+    .getElementById("button")
+    ?.addEventListener("click", async (event: Event) => {
+      event.preventDefault();
+      const form = document.getElementById("painel-form-editar");
+      const data = new FormData(form as HTMLFormElement);
+      const arquivo = imgInput.files?.[0];
+
+      if (!arquivo) {
+        alert("Selecione uma imagem!");
+        return;
+      }
+      const base64 = await converterParaBase64(arquivo);
+      const formData: FormDataCadastrar = {
+        nome: data.get("name") as string,
+        categoria: data.get("category") as string,
+        descricao: data.get("description") as string,
+        descricaoAltImage: data.get("alt-description") as string,
+        base64Image: base64,
+      };
+
+      const response = await fetch(`${apiUrl}/menu-item/cadastrar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) alert("Cadastrado!");
+    });
+
+  function converterParaBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+</script>
