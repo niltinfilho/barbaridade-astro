@@ -1,0 +1,296 @@
+---
+import BtnDefault from "../../components/shared/BtnDefault.astro";
+import LayoutPainel from "../../layouts/LayoutPainel.astro";
+import type { ItemMenuDetalhes } from "@types";
+const apiUrl = import.meta.env.PUBLIC_API_URL;
+const base = import.meta.env.BASE_URL;
+const itemMenuDetalhesResponse = await fetch(`${apiUrl}/menu-itens`);
+const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
+---
+
+<LayoutPainel pageTitle="Cadastro de Novo Item do Menu">
+  <section id="menu-section">
+    <div class="categorias">
+      <BtnDefault label="Petiscos & Acompanhamentos" ref="#petiscos" />
+      <BtnDefault label="Pratos Principais" ref="#pratos-principais" />
+      <BtnDefault label="Sobremesas" ref="#sobremesas" />
+      <BtnDefault label="Drinks da Casa" ref="#drinks" />
+      <BtnDefault label="Cervejas & Chopes" ref="#cervejas" />
+    </div>
+    <div class="menu-grid container">
+      {
+        itemMenuDetalhesData.map(
+          (itemMenuDetalhes: ItemMenuDetalhes) =>
+            itemMenuDetalhes.itens.length > 0 && (
+              <div class="section">
+                <h2>{itemMenuDetalhes.descricaoCategoria}</h2>
+                <div class="cards">
+                  {itemMenuDetalhes.itens.map((item) => (
+                    <article class="card">
+                      <img
+                        src={item.base64Image}
+                        alt={item.descricaoAltImage}
+                      />
+                      <h3>{item.nome}</h3>
+                      <p>{item.descricao}</p>
+                      <div class="flex card-buttons">
+                        <a
+                          href={`${base}/painel/editar/${item.uuidItemMenu}`}
+                          class="btn-default btn-edit"
+                        >
+                          Editar
+                        </a>
+                        <a
+                          class="btn-default btn-delete"
+                          data-uuidItemMenu={item.uuidItemMenu}
+                          data-nomeItemMenu={item.nome}
+                        >
+                          Excluir
+                        </a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ),
+        )
+      }
+    </div>
+  </section>
+</LayoutPainel>
+
+<style>
+  #menu-section {
+    background-color: var(--white);
+    padding: 96px 0;
+
+    .categorias {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .menu-grid {
+      display: grid;
+      gap: 40px;
+      align-items: start;
+
+      .section {
+        h2 {
+          font-size: 48px;
+          font-weight: 600;
+          text-align: center;
+          text-transform: uppercase;
+          color: var(--primary-color);
+          margin: 96px 0 64px;
+        }
+
+        .cards {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 80px;
+
+          .card {
+            background: var(--secondary-color);
+            border-radius: 16px;
+            padding: 12px 12px 24px;
+            text-align: center;
+            color: white;
+
+            img {
+              width: 100%;
+              border-radius: 14px;
+            }
+
+            h3 {
+              font-weight: 600;
+              font-size: 24px;
+              letter-spacing: 0.2px;
+              margin: 16px 0 12px;
+            }
+
+            p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .card-buttons {
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+
+    .btn-default {
+      border-radius: 12px;
+      transition: all 0.2s;
+      padding: 16px 24px;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-edit {
+      background-color: var(--white);
+      color: var(--secondary-color);
+
+      &:hover {
+        background-color: var(--medium-grey);
+        /* color: var(--primary-color); */
+      }
+    }
+
+    .btn-delete {
+      background-color: #dc3545;
+      color: var(--white);
+
+      &:hover {
+        background-color: #b12c39;
+        /* color: var(--primary-color); */
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    #menu-section {
+      background-color: var(--white);
+      padding: 64px 16px;
+
+      .categorias {
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+
+      .menu-grid {
+        .section {
+          h2 {
+            font-size: 36px;
+            margin: 80px 0 64px;
+          }
+
+          .cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            .card {
+              h3 {
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 720px) {
+    #menu-section {
+      .categorias {
+        gap: 16px;
+        font-size: 14px;
+      }
+
+      .menu-grid {
+        gap: 24px;
+
+        .section {
+          h2 {
+            font-size: 24px;
+          }
+
+          .cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+
+            .card {
+              h3 {
+                font-size: 18px;
+              }
+
+              p {
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import Toastify from "toastify-js";
+  import "toastify-js/src/toastify.css";
+  const apiUrl = import.meta.env.PUBLIC_API_URL;
+  const deleteButtons = document.querySelectorAll(".btn-delete");
+
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const uuidItemMenu = button.getAttribute("data-uuidItemMenu");
+      const nomeItemMenu = button.getAttribute("data-nomeItemMenu");
+
+      if (
+        uuidItemMenu &&
+        confirm(`Deseja realmente excluir o(a) ${nomeItemMenu}`)
+      ) {
+        await fetch(`${apiUrl}/menu-item/deletar/${uuidItemMenu}`, {
+          method: "delete",
+        })
+          .then(async (res) => {
+            const excluirData = await res.json();
+            let backgroundColor;
+            if (res.ok) {
+              backgroundColor =
+                "linear-gradient(to right, rgba(40, 167, 69, 0.8), rgba(25, 135, 84, 0.9))";
+            } else {
+              backgroundColor =
+                "linear-gradient(to right, rgba(220, 53, 69, 0.85), rgba(139, 0, 0, 0.8))";
+            }
+            Toastify({
+              text: excluirData.message,
+              close: true,
+              offset: {
+                x: 12,
+                y: 132,
+              },
+              style: {
+                backgroundImage: backgroundColor,
+                borderRadius: "12px",
+                padding: "24px",
+                fontSize: "18px",
+                maxWidth: "350px",
+              },
+              onClick: function () {},
+            }).showToast();
+          })
+          .catch((error) => {
+            console.error(error);
+            Toastify({
+              text: "O servidor está fora do ar. Tente novamente mais tarde!",
+              close: true,
+              offset: {
+                x: 12,
+                y: 132,
+              },
+              style: {
+                backgroundImage:
+                  "linear-gradient(to right, rgba(220, 53, 69, 0.7), rgba(139, 0, 0, 0.85))",
+                borderRadius: "12px",
+                padding: "24px",
+                fontSize: "18px",
+                maxWidth: "350px",
+              },
+            }).showToast();
+          })
+          .finally(() => {
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+          });
+      }
+    });
+  });
+</script>

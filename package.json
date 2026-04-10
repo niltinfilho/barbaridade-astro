@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "astro": "^5.17.1",
-    "swiper": "^12.1.2"
+    "swiper": "^12.1.2",
+    "toastify-js": "^1.12.0"
   }
 }
