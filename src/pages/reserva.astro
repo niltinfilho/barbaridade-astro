@@ -27,7 +27,6 @@ import Menu from "../components/Menu.astro";
               id="name"
               placeholder="Pra gente te chamar do jeito certo (e preparar seu lugar com carinho)"
               class="inputs required"
-              oninput="nameValidate()"
             />
             <span class="span-required">
               O nome deve ter no mínimo 3 caracteres
@@ -41,8 +40,6 @@ import Menu from "../components/Menu.astro";
               id="telefone"
               placeholder="Caso precise confirmar ou ajustar o horário do seu brinde"
               class="inputs required"
-              onblur="mascaraDeTelefone(this)"
-              oninput="telefoneValidate(this)"
             />
             <span class="span-required">
               O telefone deve ter no mínimo 8 caracteres
@@ -56,7 +53,6 @@ import Menu from "../components/Menu.astro";
               id="email"
               placeholder="Pra enviar a confirmação da reserva"
               class="inputs required"
-              oninput="emailValidate()"
             />
             <span class="span-required"> O e-mail deve ser válido </span>
           </div>
@@ -69,7 +65,6 @@ import Menu from "../components/Menu.astro";
                 id="data"
                 placeholder="Escolha o dia da sua noite Bar-Baridade"
                 class="inputs required"
-                oninput="dataValidate()"
               />
               <span class="span-required">
                 A data da reserva deve ser válida
@@ -83,11 +78,7 @@ import Menu from "../components/Menu.astro";
                 id="numero"
                 placeholder="Mais gente, mais brindes"
                 class="inputs required"
-                oninput="numeroValidate()"
               />
-              <span class="span-required">
-                O número de pessoas deve ser maior ou igual a 1
-              </span>
             </div>
           </div>
           <div>
@@ -96,7 +87,6 @@ import Menu from "../components/Menu.astro";
               type="button"
               class="disabled"
               disabled
-              onclick="sendWhatsapp()"
             >
               Confirmar reserva
             </button>
@@ -309,3 +299,7 @@ import Menu from "../components/Menu.astro";
     }
   }
 </style>
+
+<script>
+  import "../scripts/form.js";
+</script>
