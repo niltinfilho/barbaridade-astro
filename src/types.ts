@@ -31,6 +31,6 @@ export interface FormDataCadastrar {
   nome: string;
   categoria: string;
   descricao: string;
-  base64Image: string;
+  base64Image?: string;
   descricaoAltImage: string;
 };

@@ -1,53 +1,51 @@
 ---
 import LayoutPainel from "../../../layouts/LayoutPainel.astro";
-import type { ItemMenu, Categoria, FormDataCadastrar } from "@types";
+import type { Categoria, ItemMenu } from "@types";
 export const prerender = false;
 const { uuid } = Astro.params;
 const apiUrl = import.meta.env.PUBLIC_API_URL;
-const itemMenuResponse = await fetch(`${apiUrl}/menu-item/${uuid}`);
-const itemMenuData: ItemMenu = await itemMenuResponse.json();
-
 const categoriasResponse = await fetch(`${apiUrl}/enums/categorias-item-menu`);
 const categoriasData: Categoria[] = await categoriasResponse.json();
+const itemMenuResponse = await fetch(`${apiUrl}/menu-item/${uuid}`);
+const itemMenuData: ItemMenu = await itemMenuResponse.json();
 ---
 
 <LayoutPainel pageTitle=`Editar item '${itemMenuData.nome}'`>
   <section id="editar-item-section">
-    <div class="container flex form-wrapper">
-      <div class="img-form"></div>
+    <div class="container-960 flex form-wrapper">
       <div class="form-content">
         <h1>Editar item de menu</h1>
         <p>Deixe os sabores ainda mais atraentes.</p>
-        <form class="flex" id="painel-form-editar">
+        <form
+          class="flex"
+          id="painel-form-editar"
+          data-uuidItemMenu={itemMenuData.uuidItemMenu}
+        >
           <div>
-            <label for="name">Nome</label>
+            <label for="name">Nome*</label>
             <input
               type="text"
               name="name"
               id="name"
               value={itemMenuData.nome}
+              placeholder="Dê um nome irresistível ao item"
               class="inputs required"
             />
-            <span class="span-required">
-              O nome deve ter no mínimo 3 caracteres
-            </span>
           </div>
           <div>
-            <label for="description">Descrição</label>
+            <label for="description">Descrição*</label>
             <input
               type="text"
               name="description"
               id="description"
               value={itemMenuData.descricao}
+              placeholder="O que compõe este prato?"
               class="inputs required"
             />
-            <span class="span-required">
-              A descrição deve ter no mínimo 8 caracteres
-            </span>
           </div>
           <div class="form-two-columns flex">
             <div>
-              <label for="category">Categoria</label>
+              <label for="category">Categoria*</label>
               <select name="category" id="category">
                 <option value={itemMenuData.categoria} selected>
                   {itemMenuData.descricaoCategoria}
@@ -60,23 +58,15 @@ const categoriasData: Categoria[] = await categoriasResponse.json();
                   ))
                 }
               </select>
-              <span class="span-required"> A imagem deve ser válida </span>
             </div>
             <div>
-              <div class="flex gap-4 items-end"></div>
-              <label for="image">Imagem selecionada</label>
-              <img
-                src={`${itemMenuData.base64Image}`}
-                alt={itemMenuData.descricaoAltImage}
-                id="image-preview"
-              />
+              <label for="image">Imagem*</label>
               <input
                 type="file"
                 name="image"
                 id="image"
                 class="inputs required"
               />
-              <span class="span-required"> A imagem deve ser válida </span>
             </div>
           </div>
           <div>
@@ -86,16 +76,26 @@ const categoriasData: Categoria[] = await categoriasResponse.json();
               name="alt-description"
               id="alt-description"
               value={itemMenuData.descricaoAltImage}
+              placeholder="O que está acontecendo na foto?"
               class="inputs required"
             />
-            <span class="span-required">
-              A descrição alt da imagem deve ter no mínimo 10 caracteres
-            </span>
           </div>
           <div>
-            <button id="button" type="button"> Editar item </button>
+            <button id="button" type="button"> Editar </button>
           </div>
         </form>
+      </div>
+      <div class="preview-item-menu flex">
+        <p>Pré-visualização do item</p>
+        <div class="card">
+          <img
+            id="image-preview"
+            src={itemMenuData.base64Image}
+            alt={itemMenuData.descricaoAltImage}
+          />
+          <h3 id="name-preview">{itemMenuData.nome}</h3>
+          <p id="description-preview">{itemMenuData.descricao}</p>
+        </div>
       </div>
     </div>
   </section>
@@ -107,16 +107,42 @@ const categoriasData: Categoria[] = await categoriasResponse.json();
     padding: 96px 0;
 
     .form-wrapper {
+      padding: 24px 0;
       background-color: var(--light-grey);
       border-radius: 12px;
 
-      .img-form {
-        background: url("../../../assets/about/img-about-3.jpg") center center
-          no-repeat;
-        background-size: cover;
-        width: 640px;
-        height: 600px;
-        border-radius: 12px 0 0 12px;
+      .preview-item-menu {
+        width: 45%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        .card {
+          min-width: 373px;
+          min-height: 343px;
+          background: var(--secondary-color);
+          border-radius: 16px;
+          padding: 12px 12px 24px;
+          text-align: center;
+          color: white;
+
+          img {
+            width: 100%;
+            border-radius: 14px;
+          }
+
+          h3 {
+            font-weight: 600;
+            font-size: 24px;
+            letter-spacing: 0.2px;
+            margin: 16px 0 12px;
+          }
+
+          p {
+            font-size: 14px;
+          }
+        }
       }
 
       .form-content {
@@ -220,51 +246,145 @@ const categoriasData: Categoria[] = await categoriasResponse.json();
 </style>
 
 <script>
+  import Toastify from "toastify-js";
+  import "toastify-js/src/toastify.css";
   import type { FormDataCadastrar } from "@types";
+  const base = import.meta.env.BASE_URL;
   const apiUrl = import.meta.env.PUBLIC_API_URL;
   const imgInput = document.getElementById("image") as HTMLInputElement;
 
-  imgInput.addEventListener("input", async () => {
-    const arquivo = imgInput.files?.[0];
-    console.log("chamou!");
-    console.log(arquivo);
-    if (!arquivo) {
-      alert("Selecione uma imagem!");
-      return;
+  const nameInput = document.getElementById("name");
+  const descriptionInput = document.getElementById("description");
+  const imageInput = document.getElementById("image") as HTMLInputElement;
+  const altDescriptionInput = document.getElementById(
+    "alt-description",
+  ) as HTMLInputElement;
+  const btnSubmit = document.getElementById("button");
+
+  const namePreview = document.getElementById("name-preview");
+  const descriptionPreview = document.getElementById("description-preview");
+  const imagePreview = document.getElementById("image-preview");
+
+  nameInput!.addEventListener("input", async () => {
+    namePreview!.innerText = (nameInput! as HTMLInputElement).value;
+  });
+  descriptionInput!.addEventListener("input", async () => {
+    descriptionPreview!.innerText = (
+      descriptionInput! as HTMLInputElement
+    ).value;
+  });
+  imageInput.addEventListener("input", async () => {
+    const arquivo = imageInput.files?.[0];
+    if (arquivo) {
+      const base64 = await converterParaBase64(arquivo);
+      (imagePreview! as HTMLImageElement).src = base64;
     }
-    const base64 = await converterParaBase64(arquivo);
-    const imgPreview: any = document.getElementById("image-preview");
-    imgPreview.src = base64;
+  });
+  altDescriptionInput!.addEventListener("input", async () => {
+    (imagePreview! as HTMLImageElement).alt = (
+      altDescriptionInput! as HTMLInputElement
+    ).value;
   });
 
-  document
-    .getElementById("button")
-    ?.addEventListener("click", async (event: Event) => {
+  
+    btnSubmit?.addEventListener("click", async (event: Event) => {
       event.preventDefault();
       const form = document.getElementById("painel-form-editar");
       const data = new FormData(form as HTMLFormElement);
       const arquivo = imgInput.files?.[0];
+      const uuidItemMenu = form?.getAttribute("data-uuidItemMenu");
+      btnSubmit.innerText = "Editando...";
 
-      if (!arquivo) {
-        alert("Selecione uma imagem!");
-        return;
-      }
-      const base64 = await converterParaBase64(arquivo);
       const formData: FormDataCadastrar = {
         nome: data.get("name") as string,
         categoria: data.get("category") as string,
         descricao: data.get("description") as string,
         descricaoAltImage: data.get("alt-description") as string,
-        base64Image: base64,
+        base64Image: arquivo ? await converterParaBase64(arquivo) : undefined,
       };
+      if (!uuidItemMenu) {
+        let backgroundColor =
+          "linear-gradient(to right, rgba(220, 53, 69, 0.85), rgba(139, 0, 0, 0.8))";
+        Toastify({
+          text: "Item do menu não foi encontrado!",
+          close: true,
+          offset: {
+            x: 12,
+            y: 132,
+          },
+          style: {
+            backgroundImage: backgroundColor,
+            borderRadius: "12px",
+            padding: "24px",
+            fontSize: "18px",
+            maxWidth: "350px",
+          },
+          onClick: function () {},
+        }).showToast();
+        return;
+      }
 
-      const response = await fetch(`${apiUrl}/menu-item/cadastrar`, {
-        method: "POST",
+      await fetch(`${apiUrl}/menu-item/editar/${uuidItemMenu}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) alert("Cadastrado!");
+      })
+        .then(async (res) => {
+          const editarData = await res.json();
+          let backgroundColor;
+          if (res.ok) {
+            backgroundColor =
+              "linear-gradient(to right, rgba(40, 167, 69, 0.8), rgba(25, 135, 84, 0.9))";
+          } else {
+            backgroundColor =
+              "linear-gradient(to right, rgba(220, 53, 69, 0.85), rgba(139, 0, 0, 0.8))";
+          }
+          Toastify({
+            text: editarData.message,
+            close: true,
+            offset: {
+              x: 12,
+              y: 132,
+            },
+            style: {
+              backgroundImage: backgroundColor,
+              borderRadius: "12px",
+              padding: "24px",
+              fontSize: "18px",
+              maxWidth: "350px",
+            },
+            onClick: function () {},
+          }).showToast();
+          if (res.ok) {
+            setTimeout(() => {
+              window.location.replace(`${base}/painel/menu-itens`);
+            }, 2000);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          Toastify({
+            text: "O servidor está fora do ar. Tente novamente mais tarde!",
+            close: true,
+            offset: {
+              x: 12,
+              y: 132,
+            },
+            style: {
+              backgroundImage:
+                "linear-gradient(to right, rgba(220, 53, 69, 0.7), rgba(139, 0, 0, 0.85))",
+              borderRadius: "12px",
+              padding: "24px",
+              fontSize: "18px",
+              maxWidth: "350px",
+            },
+          }).showToast();
+        })
+        .finally(() => {
+          setTimeout(() => {
+            window.location.replace(`${base}/painel/menu-itens`);
+          }, 2000);
+        });
     });
 
   function converterParaBase64(file: File): Promise<string> {
