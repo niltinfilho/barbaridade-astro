@@ -1,26 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroSubpages from "../components/shared/HeroSubpage.astro";
-import frios from "../assets/tabua-de-frios.jpg";
-import bolinho from "../assets/bolinho-de-costela.jpg";
-import pasteis from "../assets/mini-pasteis.jpg";
-import tilapia from "../assets/iscas-de-tilapia.jpg";
-import risoto from "../assets/risoto-de-limao.jpg";
-import burger from "../assets/burger-da-casa.jpg";
-import file from "../assets/file-ao-molho.jpg";
-import petit from "../assets/petit-gateau-com-sorvete-de-baunilha 1.jpg";
-import cheesecake from "../assets/cheesecake-com-frutas-vermelhas.jpg";
-import brownie from "../assets/brownie-com-calda-de-chocolate.jpg";
-import gin from "../assets/gin-limao-siciliano-e-toque-de-mel.jpg";
-import vodka from "../assets/vodka-maracuja-e-gengibre.jpg";
-import espumante from "../assets/espumante-aperol-e-toque-de-caju.jpg";
-import whisky from "../assets/whisky-licor-de-cafe-e-raspas-de-laranja.jpg";
-import rum from "../assets/rum-hortela-limao-e-gengibre.jpg";
-import chopp from "../assets/chopp-da-casa.jpg";
-import ipa from "../assets/ipa-artesanal.jpg";
-import weiss from "../assets/weiss-premium.jpg";
-import long from "../assets//long-neck.jpg";
 import BtnDefault from "../components/shared/BtnDefault.astro";
+import type { ItemMenuDetalhes } from "@types";
+const apiUrl = import.meta.env.PUBLIC_API_URL;
+const base = import.meta.env.BASE_URL;
+const itemMenuDetalhesResponse = await fetch(`${apiUrl}/menu-itens`);
+const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
 ---
 
 <Layout pageTitle="Menu">
@@ -37,154 +23,31 @@ import BtnDefault from "../components/shared/BtnDefault.astro";
       <BtnDefault label="Cervejas & Chopes" ref="#cervejas" />
     </div>
     <div class="menu-grid container">
-      <div class="section" id="petiscos">
-        <h2>Petiscos & Acompanhamentos</h2>
-        <div class="cards">
-          <article class="card">
-            <img src={frios.src} alt="Tabúa de frios" />
-            <h3>Tábua Bar-Baridade</h3>
-            <p>Mix de Queijos, Frios e Frutas Secas.</p>
-          </article>
-
-          <article class="card">
-            <img src={bolinho.src} alt="Bolinho de costela" />
-            <h3>Bolinho de Costela</h3>
-            <p>Crocante por fora, suculento por dentro.</p>
-          </article>
-
-          <article class="card">
-            <img src={pasteis.src} alt="Minia pastéis" />
-            <h3>Mini Pastéis Sortidos</h3>
-            <p>Carne, Queijo e Palmito.</p>
-          </article>
-
-          <article class="card">
-            <img src={tilapia.src} alt="Iscas de tilápia" />
-            <h3>Iscas de Tilápia</h3>
-            <p>Com molho tartaro artesanal.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="section" id="pratos-principais">
-        <h2>Pratos principais</h2>
-        <div class="cards">
-          <article class="card">
-            <img
-              src={risoto.src}
-              alt="Risoto de limão siciliano com camarões"
-            />
-            <h3>Risoto Ao Limão Siciliano</h3>
-            <p>Leve, Cremoso e Marcante.</p>
-          </article>
-
-          <article class="card">
-            <img src={burger.src} alt="Burger da casa" />
-            <h3>Burger Da Casa</h3>
-            <p>Blend artesanal, queijo brie e geleia de pimenta.</p>
-          </article>
-
-          <article class="card">
-            <img src={file.src} alt="Filé Ao Molho" />
-            <h3>Filé Ao Molho</h3>
-            <p>Contra filé ao molho de vinho tinto e ervas.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="section" id="sobremesas">
-        <h2>Sobremesas</h2>
-        <div class="cards">
-          <article class="card">
-            <img src={petit.src} alt="Petit Gateau com sorvete de baunilha" />
-            <h3>Petit Gateau</h3>
-            <p>Com sorvete de baunilha.</p>
-          </article>
-
-          <article class="card">
-            <img src={cheesecake.src} alt="Cheesecake de frutas vermelhas" />
-            <h3>Cheesecake</h3>
-            <p>De frutas vermelhas.</p>
-          </article>
-
-          <article class="card">
-            <img
-              src={brownie.src}
-              alt="Brownie com calda quente de chocolate"
-            />
-            <h3>Brownie</h3>
-            <p>Com calda quente de chocolate.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="section" id="drinks">
-        <h2>Drinks da Casa</h2>
-        <div class="cards">
-          <article class="card">
-            <img src={gin.src} alt="Clássico Baridade" />
-            <h3>Clássico Baridade</h3>
-            <p>Gin, Limão Siciliano e toque de mel.</p>
-          </article>
-
-          <article class="card">
-            <img src={vodka.src} alt="To Suave Mas Nem Tanto" />
-            <h3>To Suave, Mas Nem Tanto</h3>
-            <p>Vodka, Maracujá e Gengibre.</p>
-          </article>
-
-          <article class="card">
-            <img src={espumante.src} alt="Tropical Baridade" />
-            <h3>Spritz do Cerrado</h3>
-            <p>Espumante, Aperol e Toque de Caju.</p>
-          </article>
-
-          <article class="card">
-            <img src={whisky.src} alt="Elegancia Duvidosa" />
-            <h3>Elegência Duvidosa</h3>
-            <p>Wisky, Licor de Café e Laranaja.</p>
-          </article>
-
-          <article class="card">
-            <img src={rum.src} alt="Elegancia Duvidosa" />
-            <h3>Bar-baridade Mule</h3>
-            <p>Rum, hortelã, limão e gengibre.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="section" id="cervejas">
-        <h2>Chopes & Cervejas</h2>
-        <div class="cards">
-          <article class="card">
-            <img src={chopp.src} alt="Chope pilsen da casa" />
-            <h3>Chope Pilsen da Casa</h3>
-            <p>300ml / 500ml.</p>
-          </article>
-
-          <article class="card">
-            <img src={ipa.src} alt="IPA artesanal" />
-            <h3>IPA Artesanal</h3>
-            <p>Amargor elegante, Aroma Cítrico.</p>
-          </article>
-
-          <article class="card">
-            <img src={weiss.src} alt="Weiss Premium" />
-            <h3>Weiss Premium</h3>
-            <p>Leve e Cremoso.</p>
-          </article>
-
-          <article class="card">
-            <img src={long.src} alt="Long Neck" />
-            <h3>Long Neck Importada</h3>
-            <p>Heineken/Stella/Corona.</p>
-          </article>
-        </div>
-      </div>
+      {
+        itemMenuDetalhesData.map(
+          (itemMenuDetalhes: ItemMenuDetalhes) =>
+            itemMenuDetalhes.itens.length > 0 && (
+              <div class="section">
+                <h2>{itemMenuDetalhes.descricaoCategoria}</h2>
+                <div class="cards">
+                  {itemMenuDetalhes.itens.map((item) => (
+                    <article class="card">
+                      <img
+                        src={item.base64Image}
+                        alt={item.descricaoAltImage}
+                      />
+                      <h3>{item.nome}</h3>
+                      <p>{item.descricao}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ),
+        )
+      }
     </div>
   </section>
-</Layout>
-
+  
 <style>
   #menu-section {
     background-color: var(--white);
@@ -243,6 +106,20 @@ import BtnDefault from "../components/shared/BtnDefault.astro";
       }
     }
   }
+
+  .card-buttons {
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+
+    .btn-default {
+      border-radius: 12px;
+      transition: all 0.2s;
+      padding: 16px 24px;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
   @media (max-width: 1280px) {
     #menu-section {
@@ -311,3 +188,77 @@ import BtnDefault from "../components/shared/BtnDefault.astro";
     }
   }
 </style>
+
+<script>
+  import Toastify from "toastify-js";
+  import "toastify-js/src/toastify.css";
+  const apiUrl = import.meta.env.PUBLIC_API_URL;
+  const deleteButtons = document.querySelectorAll(".btn-delete");
+
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const uuidItemMenu = button.getAttribute("data-uuidItemMenu");
+      const nomeItemMenu = button.getAttribute("data-nomeItemMenu");
+
+      if (
+        uuidItemMenu &&
+        confirm(`Deseja realmente excluir o(a) ${nomeItemMenu}`)
+      ) {
+        await fetch(`${apiUrl}/menu-item/deletar/${uuidItemMenu}`, {
+          method: "delete",
+        })
+          .then(async (res) => {
+            const excluirData = await res.json();
+            let backgroundColor;
+            if (res.ok) {
+              backgroundColor =
+                "linear-gradient(to right, rgba(40, 167, 69, 0.8), rgba(25, 135, 84, 0.9))";
+            } else {
+              backgroundColor =
+                "linear-gradient(to right, rgba(220, 53, 69, 0.85), rgba(139, 0, 0, 0.8))";
+            }
+            Toastify({
+              text: excluirData.message,
+              close: true,
+              offset: {
+                x: 12,
+                y: 132,
+              },
+              style: {
+                backgroundImage: backgroundColor,
+                borderRadius: "12px",
+                padding: "24px",
+                fontSize: "18px",
+                maxWidth: "350px",
+              },
+              onClick: function () {},
+            }).showToast();
+          })
+          .catch((error) => {
+            console.error(error);
+            Toastify({
+              text: "O servidor está fora do ar. Tente novamente mais tarde!",
+              close: true,
+              offset: {
+                x: 12,
+                y: 132,
+              },
+              style: {
+                backgroundImage:
+                  "linear-gradient(to right, rgba(220, 53, 69, 0.7), rgba(139, 0, 0, 0.85))",
+                borderRadius: "12px",
+                padding: "24px",
+                fontSize: "18px",
+                maxWidth: "350px",
+              },
+            }).showToast();
+          })
+          .finally(() => {
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+          });
+      }
+    });
+  });
+</script>
