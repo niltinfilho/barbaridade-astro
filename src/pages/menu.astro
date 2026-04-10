@@ -4,7 +4,6 @@ import HeroSubpages from "../components/shared/HeroSubpage.astro";
 import BtnDefault from "../components/shared/BtnDefault.astro";
 import type { ItemMenuDetalhes } from "@types";
 const apiUrl = import.meta.env.PUBLIC_API_URL;
-const base = import.meta.env.BASE_URL;
 const itemMenuDetalhesResponse = await fetch(`${apiUrl}/menu-itens`);
 const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
 ---
@@ -16,18 +15,18 @@ const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
   />
   <section id="menu-section">
     <div class="categorias">
-      <BtnDefault label="Petiscos & Acompanhamentos" ref="#petiscos" />
-      <BtnDefault label="Pratos Principais" ref="#pratos-principais" />
-      <BtnDefault label="Sobremesas" ref="#sobremesas" />
-      <BtnDefault label="Drinks da Casa" ref="#drinks" />
-      <BtnDefault label="Cervejas & Chopes" ref="#cervejas" />
+      <BtnDefault label="Petiscos & Acompanhamentos" ref="#PETISCOS_E_ACOMPANHAMENTOS" anchor=true />
+      <BtnDefault label="Pratos Principais" ref="#PRATOS_PRINCIPAIS" anchor=true />
+      <BtnDefault label="Sobremesas" ref="#SOBREMESAS" anchor=true />
+      <BtnDefault label="Drinks da Casa" ref="#DRINKS_DA_CASA" anchor=true />
+      <BtnDefault label="Cervejas & Chopes" ref="#CERVEJAS_E_CHOPES" anchor=true/>
     </div>
     <div class="menu-grid container">
       {
         itemMenuDetalhesData.map(
           (itemMenuDetalhes: ItemMenuDetalhes) =>
             itemMenuDetalhes.itens.length > 0 && (
-              <div class="section">
+              <div class="section" id={itemMenuDetalhes.categoria}>
                 <h2>{itemMenuDetalhes.descricaoCategoria}</h2>
                 <div class="cards">
                   {itemMenuDetalhes.itens.map((item) => (
@@ -188,77 +187,3 @@ const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
     }
   }
 </style>
-
-<script>
-  import Toastify from "toastify-js";
-  import "toastify-js/src/toastify.css";
-  const apiUrl = import.meta.env.PUBLIC_API_URL;
-  const deleteButtons = document.querySelectorAll(".btn-delete");
-
-  deleteButtons.forEach((button) => {
-    button.addEventListener("click", async () => {
-      const uuidItemMenu = button.getAttribute("data-uuidItemMenu");
-      const nomeItemMenu = button.getAttribute("data-nomeItemMenu");
-
-      if (
-        uuidItemMenu &&
-        confirm(`Deseja realmente excluir o(a) ${nomeItemMenu}`)
-      ) {
-        await fetch(`${apiUrl}/menu-item/deletar/${uuidItemMenu}`, {
-          method: "delete",
-        })
-          .then(async (res) => {
-            const excluirData = await res.json();
-            let backgroundColor;
-            if (res.ok) {
-              backgroundColor =
-                "linear-gradient(to right, rgba(40, 167, 69, 0.8), rgba(25, 135, 84, 0.9))";
-            } else {
-              backgroundColor =
-                "linear-gradient(to right, rgba(220, 53, 69, 0.85), rgba(139, 0, 0, 0.8))";
-            }
-            Toastify({
-              text: excluirData.message,
-              close: true,
-              offset: {
-                x: 12,
-                y: 132,
-              },
-              style: {
-                backgroundImage: backgroundColor,
-                borderRadius: "12px",
-                padding: "24px",
-                fontSize: "18px",
-                maxWidth: "350px",
-              },
-              onClick: function () {},
-            }).showToast();
-          })
-          .catch((error) => {
-            console.error(error);
-            Toastify({
-              text: "O servidor está fora do ar. Tente novamente mais tarde!",
-              close: true,
-              offset: {
-                x: 12,
-                y: 132,
-              },
-              style: {
-                backgroundImage:
-                  "linear-gradient(to right, rgba(220, 53, 69, 0.7), rgba(139, 0, 0, 0.85))",
-                borderRadius: "12px",
-                padding: "24px",
-                fontSize: "18px",
-                maxWidth: "350px",
-              },
-            }).showToast();
-          })
-          .finally(() => {
-            setTimeout(() => {
-              location.reload();
-            }, 2000);
-          });
-      }
-    });
-  });
-</script>

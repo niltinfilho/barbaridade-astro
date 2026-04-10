@@ -6,10 +6,14 @@ const {
   ref = "reserva",
   colorScheme = "primary",
   className,
+  anchor = false,
 } = Astro.props;
 ---
 
-<a href={`${base}/${ref}`} class={`btn-default btn-${colorScheme} ${className}`}>{label}</a>
+<a
+  href={anchor ? `${ref}` : `${base}/${ref}`}
+  class={`btn-default btn-${colorScheme} ${className}`}>{label}</a
+>
 
 <style>
   .btn-default {
