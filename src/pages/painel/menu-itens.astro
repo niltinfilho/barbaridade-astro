@@ -8,54 +8,19 @@ const itemMenuDetalhesResponse = await fetch(`${apiUrl}/menu-itens`);
 const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
 ---
 
-<LayoutPainel pageTitle="Cadastro de Novo Item do Menu">
+<LayoutPainel pageTitle="Todos os itens de menu cadastrados">
   <section id="menu-section">
     <div class="categorias">
-      <BtnDefault label="Petiscos & Acompanhamentos" ref="#petiscos" />
-      <BtnDefault label="Pratos Principais" ref="#pratos-principais" />
-      <BtnDefault label="Sobremesas" ref="#sobremesas" />
-      <BtnDefault label="Drinks da Casa" ref="#drinks" />
-      <BtnDefault label="Cervejas & Chopes" ref="#cervejas" />
+      <a class="btn-default btn-primary" id="todos">Todos os itens</a>
+      <a class="btn-default btn-primary" id="petiscos"
+        >Petiscos & Acompanhamentos</a
+      >
+      <a class="btn-default btn-primary" id="principais">Pratos Principais</a>
+      <a class="btn-default btn-primary" id="sobremesas">Sobremesas</a>
+      <a class="btn-default btn-primary" id="drinks">Drinks da Casa</a>
+      <a class="btn-default btn-primary" id="cervejas">Cervejas & Chopes</a>
     </div>
-    <div class="menu-grid container">
-      {
-        itemMenuDetalhesData.map(
-          (itemMenuDetalhes: ItemMenuDetalhes) =>
-            itemMenuDetalhes.itens.length > 0 && (
-              <div class="section">
-                <h2>{itemMenuDetalhes.descricaoCategoria}</h2>
-                <div class="cards">
-                  {itemMenuDetalhes.itens.map((item) => (
-                    <article class="card">
-                      <img
-                        src={item.base64Image}
-                        alt={item.descricaoAltImage}
-                      />
-                      <h3>{item.nome}</h3>
-                      <p>{item.descricao}</p>
-                      <div class="flex card-buttons">
-                        <a
-                          href={`${base}/painel/editar/${item.uuidItemMenu}`}
-                          class="btn-default btn-edit"
-                        >
-                          Editar
-                        </a>
-                        <a
-                          class="btn-default btn-delete"
-                          data-uuidItemMenu={item.uuidItemMenu}
-                          data-nomeItemMenu={item.nome}
-                        >
-                          Excluir
-                        </a>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            ),
-        )
-      }
-    </div>
+    <div class="menu-grid container"></div>
   </section>
 </LayoutPainel>
 
@@ -114,41 +79,6 @@ const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
             }
           }
         }
-      }
-    }
-  }
-
-  .card-buttons {
-    justify-content: center;
-    gap: 16px;
-    margin-top: 24px;
-
-    .btn-default {
-      border-radius: 12px;
-      transition: all 0.2s;
-      padding: 16px 24px;
-      text-transform: uppercase;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-edit {
-      background-color: var(--white);
-      color: var(--secondary-color);
-
-      &:hover {
-        background-color: var(--medium-grey);
-        /* color: var(--primary-color); */
-      }
-    }
-
-    .btn-delete {
-      background-color: #dc3545;
-      color: var(--white);
-
-      &:hover {
-        background-color: #b12c39;
-        /* color: var(--primary-color); */
       }
     }
   }
@@ -224,9 +154,99 @@ const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
 <script>
   import Toastify from "toastify-js";
   import "toastify-js/src/toastify.css";
+  import type { ItemMenuDetalhes } from "@types";
   const apiUrl = import.meta.env.PUBLIC_API_URL;
-  const deleteButtons = document.querySelectorAll(".btn-delete");
+  const base = import.meta.env.BASE_URL;
+  const container = document.querySelector(".menu-grid.container");
 
+  async function renderizarItens(categoria?: string) {
+    console.log(categoria);
+    
+    container!.innerHTML = '';
+    let itemMenuDetalhesResponse;
+    if (categoria) {
+      itemMenuDetalhesResponse = await fetch(
+        `${apiUrl}/menu-itens/categoria/${categoria}`,
+      );
+    } else {
+      itemMenuDetalhesResponse = await fetch(`${apiUrl}/menu-itens`);
+    }
+    const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
+
+    itemMenuDetalhesData.forEach((itemMenuDetalhes: ItemMenuDetalhes) => {
+      if (itemMenuDetalhes.itens.length > 0) {
+        const section = document.createElement("div");
+        section.classList.add("section");
+
+        const h2 = document.createElement("h2");
+        h2.textContent = itemMenuDetalhes.descricaoCategoria;
+        section.appendChild(h2);
+
+        const cardsDiv = document.createElement("div");
+        cardsDiv.classList.add("cards");
+
+        itemMenuDetalhes.itens.forEach((item) => {
+          const article = document.createElement("article");
+          article.classList.add("card");
+
+          const img = document.createElement("img");
+          img.src = item.base64Image;
+          img.alt = item.descricaoAltImage;
+          article.appendChild(img);
+
+          const h3 = document.createElement("h3");
+          h3.textContent = item.nome;
+          article.appendChild(h3);
+
+          const p = document.createElement("p");
+          p.textContent = item.descricao;
+          article.appendChild(p);
+
+          const buttonsDiv = document.createElement("div");
+          buttonsDiv.classList.add("flex", "card-buttons");
+
+          const btnEdit = document.createElement("a");
+          btnEdit.href = `${base}/painel/editar/${item.uuidItemMenu}`;
+          btnEdit.classList.add("btn-default", "btn-edit");
+          btnEdit.textContent = "Editar";
+          buttonsDiv.appendChild(btnEdit);
+
+          const btnDelete = document.createElement("a");
+          btnDelete.classList.add("btn-default", "btn-delete");
+          btnDelete.textContent = "Excluir";
+          btnDelete.dataset.uuiditemmenu = item.uuidItemMenu;
+          btnDelete.dataset.nomeitemmenu = item.nome;
+          buttonsDiv.appendChild(btnDelete);
+
+          article.appendChild(buttonsDiv);
+          cardsDiv.appendChild(article);
+        });
+        section.appendChild(cardsDiv);
+        container!.appendChild(section);
+      }
+    });
+  }
+  renderizarItens();
+  document.querySelector("#todos")?.addEventListener("click", () => {
+    renderizarItens();
+  });
+  document.querySelector("#petiscos")?.addEventListener("click", () => {
+    renderizarItens("PETISCOS_E_ACOMPANHAMENTOS");
+  });
+  document.querySelector("#principais")?.addEventListener("click", () => {
+    renderizarItens("PRATOS_PRINCIPAIS");
+  });
+  document.querySelector("#sobremesas")?.addEventListener("click", () => {
+    renderizarItens("SOBREMESAS");
+  });
+  document.querySelector("#drinks")?.addEventListener("click", () => {
+    renderizarItens("DRINKS_DA_CASA");
+  });
+  document.querySelector("#cervejas")?.addEventListener("click", () => {
+    renderizarItens("CERVEJAS_E_CHOPES");
+  });
+  setTimeout(() => {
+    const deleteButtons = document.querySelectorAll(".btn-delete");  
   deleteButtons.forEach((button) => {
     button.addEventListener("click", async () => {
       const uuidItemMenu = button.getAttribute("data-uuidItemMenu");
@@ -293,4 +313,5 @@ const itemMenuDetalhesData = await itemMenuDetalhesResponse.json();
       }
     });
   });
+  }, 1000);
 </script>
