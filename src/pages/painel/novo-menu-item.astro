@@ -246,7 +246,6 @@ const categoriasData: Categoria[] = await categoriasResponse.json();
   import type { FormDataCadastrar } from "@types";
   import Toastify from "toastify-js";
   import "toastify-js/src/toastify.css";
-  const base = import.meta.env.BASE_URL;
   const apiUrl = import.meta.env.PUBLIC_API_URL;
 
   const btnSubmit = document.getElementById("button");
@@ -288,8 +287,7 @@ const categoriasData: Categoria[] = await categoriasResponse.json();
     btnSubmit.innerText = "Cadastrando...";
     const form = document.getElementById("painel-form-cadastrar");
     const data = new FormData(form as HTMLFormElement);
-    const imgInput = document.getElementById("image") as HTMLInputElement;
-    const arquivo = imgInput.files?.[0];
+    const arquivo = imageInput.files?.[0];
     if (!arquivo) {
       alert("Selecione uma imagem!");
       return;
@@ -330,13 +328,13 @@ const categoriasData: Categoria[] = await categoriasResponse.json();
             borderRadius: "12px",
             padding: "24px",
             fontSize: "18px",
-            maxWidth: "350px",
+            maxWidth: "380px",
           },
           onClick: function () {},
         }).showToast();
         if (res.ok) {
           setTimeout(() => {
-            window.location.replace(`${base}/painel/menu-itens`);
+            location.reload();
           }, 2000);
         }
       })
@@ -356,7 +354,7 @@ const categoriasData: Categoria[] = await categoriasResponse.json();
             borderRadius: "12px",
             padding: "24px",
             fontSize: "18px",
-            maxWidth: "350px",
+            maxWidth: "380px",
           },
         }).showToast();
       })
