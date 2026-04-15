@@ -1,0 +1,40 @@
+---
+const {
+  base64Image,
+  descricaoAltImage,
+  nome,
+  descricao,
+} = Astro.props;
+---
+
+<article class="card">
+  <img src={base64Image} alt={descricaoAltImage} />
+  <h3>{nome}</h3>
+  <p>{descricao}</p>
+</article>
+
+<style>
+  .card {
+    background: var(--secondary-color);
+    border-radius: 16px;
+    padding: 12px 12px 24px;
+    text-align: center;
+    color: white;
+
+    img {
+      width: 100%;
+      border-radius: 14px;
+    }
+
+    h3 {
+      font-weight: 600;
+      font-size: 24px;
+      letter-spacing: 0.2px;
+      margin: 16px 0 12px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+</style>
