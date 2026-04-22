@@ -1,0 +1,69 @@
+---
+import BtnDefault from "./shared/BtnDefault.astro";
+import imgHero1 from "../assets/banner-bar-baridade-1.jpg";
+import imgHero2 from "../assets/banner-bar-baridade-2.jpg";
+import imgHero3 from "../assets/banner-bar-baridade-3.jpg";
+import imgHero4 from "../assets/banner-bar-baridade-4.jpg";
+
+const images = [
+  {
+    imageUrl: `${imgHero1.src}`,
+    description: "abc",
+  },
+  {
+    imageUrl: `${imgHero2.src}`,
+    description: "abc",
+  },
+  {
+    imageUrl: `${imgHero3.src}`,
+    description: "abc",
+  },
+  {
+    imageUrl: `${imgHero4.src}`,
+    description: "abc",
+  },
+];
+---
+
+<section>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {
+        images.map((img) => (
+          <div class="swiper-slide">
+            <div
+              class="w-dvw h-dvh bg-no-repeat bg-center bg-cover"
+              style={`background-image: url(${img.imageUrl});`}
+            />
+            <div class="w-dvw h-dvh absolute top-0 left-0 opacity-95 bg-radial from-[#000000c3] to-[#00000085]" />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div
+    class="flex absolute lg:top-2/6 w-full z-10 text-center flex-col gap-8 md:gap-12 text-white"
+  >
+    <h1 class="text-3xl md:text-5xl lg:text-7xl text-white">
+      O <span class="text-(--primary-color)">ÚNICO</span> LUGAR <br />
+      ONDE O CHARME É <span class="text-(--primary-color)">DESTILADO</span>
+    </h1>
+    <BtnDefault label="Reserve Agora" className="nav-menu-button" />
+    <p class="text-sm md:text-[16px] lg:text-lg">
+      Av. das Boas Noites, 123 – Bairro Alto da Lua, São Paulo – SP
+    </p>
+  </div>
+</section>
+
+<script>
+  import Swiper from "swiper/bundle";
+  new Swiper(".swiper-hero-section", {
+    spaceBetween: 0,
+    centeredSlides: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    loop: true,
+  });
+</script>
