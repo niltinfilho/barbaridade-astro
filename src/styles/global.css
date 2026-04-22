@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
 
 :root {
   --primary-color: #eab633;
@@ -12,111 +13,41 @@
   --red: #e63636;
 }
 
-* {
-  padding: 0;
-  margin: 0;
-  text-decoration: none;
-  list-style: none;
-  box-sizing: border-box;
-}
+@layer components {
+  * {
+    @apply p-0 m-0 decoration-0 list-none box-border;
+  }
 
-html {
-  background-color: var(--secondary-color);
-  scroll-behavior: smooth;
-  font-family: Roboto;
-}
+  html {
+    @apply bg-(--secondary-color) scroll-smooth font-[Roboto];
+  }
 
-/* GLOBAL STYLES */
-
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.container-960 {
-  width: 960px;
-  margin: 0 auto;
-}
-
-.flex {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-@media (max-width: 1280px) {
+  /* GLOBAL STYLES */
   .container {
-    max-width: 720px;
+    @apply max-w-80 md:max-w-3xl lg:max-w-7xl mx-auto my-0;
   }
 
-  .btn-default {
-    border-radius: 8px;
-    padding: 12px 18px;
-  }
-
-  .btn-secondary {
-    border-radius: 8px;
-    padding: 12px 18px;
-  }
-
-  .btn-tertiary {
-    border-radius: 8px;
-    padding: 12px 18px;
-  }
-}
-
-@media (max-width: 720px) {
-  .container {
-    max-width: 320px;
+  .container-960 {
+    @apply max-w-4xl mx-auto my-0;
   }
 
   .flex {
-    flex-direction: column;
-    align-items: center;
+    @apply flex items-center flex-col md:flex-row;
   }
-}
 
-.card-buttons {
-  justify-content: center;
-  gap: 16px;
-  margin-top: 24px;
-}
-
-.btn-default {
-  border-radius: 12px;
-  transition: all 0.2s;
-  padding: 16px 24px;
-  text-transform: uppercase;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.btn-edit {
-  background-color: var(--white);
-  color: var(--secondary-color);
-
-  &:hover {
-    background-color: var(--medium-grey);
-    /* color: var(--primary-color); */
+  .btn-default {
+    @apply rounded-lg lg:rounded-xl transition-all py-3 lg:py-4 px-4 lg:px-6 uppercase font-semibold cursor-pointer;
   }
-}
 
-.btn-delete {
-  background-color: #dc3545;
-  color: var(--white);
-
-  &:hover {
-    background-color: #b12c39;
-    /* color: var(--primary-color); */
+  .btn-primary {
+    @apply bg-(--primary-color) text-(--white) hover:bg-(--secondary-color) hover:text-(--primary-color);
   }
-}
 
-.btn-primary {
-  background-color: var(--primary-color);
-  color: var(--white);
+  .btn-secondary {
+    @apply bg-(--white) text-(--secondary-color) hover:bg-(--secondary-color) hover:text-(--primary-color);
+  }
 
-  &:hover {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+  .btn-tertiary {
+    @apply bg-(--primary-color) text-(--white) hover:bg-(--white) hover:text-(--primary-color);
   }
 }
