@@ -3,6 +3,7 @@ import "../styles/global.css";
 import faviconBarBaridade from "../assets/id/favicon-bar-baridade-180x180.png";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import Acessibilidade from "../components/shared/Acessibilidade.astro";
 const { pageTitle } = Astro.props;
 ---
 
@@ -14,10 +15,21 @@ const { pageTitle } = Astro.props;
     <link rel="icon" href=`${faviconBarBaridade.src}` />
     <meta name="generator" content={Astro.generator} />
     <title>Bar-Baridade | {pageTitle}</title>
+    <meta name="description" content="Bar-Baridade – O único lugar onde o charme é destilado. Drinks autorais, boa música e uma experiência inesquecível em São Paulo." />
   </head>
   <body>
+    <!-- Link de pular para conteúdo principal (acessibilidade por teclado) -->
+    <a href="#conteudo-principal" class="skip-nav">Pular para o conteúdo principal</a>
+
     <Header />
-    <slot />
+
+    <main id="conteudo-principal" tabindex="-1">
+      <slot />
+    </main>
+
     <Footer />
+
+    <!-- Widget de Acessibilidade -->
+    <Acessibilidade />
   </body>
 </html>

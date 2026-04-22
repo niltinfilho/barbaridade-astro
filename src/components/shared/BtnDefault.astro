@@ -12,14 +12,19 @@ const {
 
 <a
   href={anchor ? `${ref}` : `${base}/${ref}`}
-  class={`btn-default btn-${colorScheme} ${className}`}>{label}</a
+  class={`btn-default btn-${colorScheme} ${className}`}
+  tabindex="0"
+  role="button"
+>{label}</a
 >
 
 <style>
   .btn-default {
     border-radius: 12px;
     transition: all 0.2s;
-    padding: 16px 24px;
+    /* rem para escalar com o ajuste de fonte do widget de acessibilidade */
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
     text-transform: uppercase;
     font-weight: 600;
   }

@@ -12,35 +12,36 @@ import imgCalendario from "../assets/banda-tocando-no-bar.jpg";
 const images = [
   {
     imageUrl: `${imgHero1.src}`,
-    description: "abc",
+    description: "Vista interna do Bar-Baridade com ambiente iluminado e mesas",
   },
   {
     imageUrl: `${imgHero2.src}`,
-    description: "abc",
+    description: "Bar-Baridade à noite com decoração sofisticada",
   },
   {
     imageUrl: `${imgHero3.src}`,
-    description: "abc",
+    description: "Drinks e petiscos servidos no Bar-Baridade",
   },
   {
     imageUrl: `${imgHero4.src}`,
-    description: "abc",
+    description: "Balcão do Bar-Baridade com atendimento personalizado",
   },
 ];
 ---
 
 <Layout pageTitle="O Único Lugar Onde o Charme é Destilado">
-  <section id="hero-section">
+  <section id="hero-section" aria-label="Banner principal do Bar-Baridade">
     <div class="swiper swiper-hero-section">
       <div class="swiper-wrapper">
         {
           images.map((img) => (
-            <div class="swiper-slide">
+            <div class="swiper-slide" role="img" aria-label={img.description}>
               <div
                 class="swiper-img"
                 style={`background-image: url(${img.imageUrl});`}
+                aria-hidden="true"
               />
-              <div class="swiper-overlay" />
+              <div class="swiper-overlay" aria-hidden="true" />
             </div>
           ))
         }
@@ -57,14 +58,14 @@ const images = [
   </section>
   <Sobre />
   <Menu />
-  <section class="flex" id="calendario-section">
+  <section class="flex" id="calendario-section" aria-labelledby="calendario-titulo">
     <div
       class="img-calendario"
       style={`background-image: url(${imgCalendario.src});`}
     >
     </div>
     <div class="text-calendario">
-      <h2>Calendário de Shows</h2>
+      <h2 id="calendario-titulo">Calendário de Shows</h2>
       <h3>Dezembro 2025</h3>
       <div class="bandas-calendario">
         <div>
@@ -96,7 +97,7 @@ const images = [
       </div>
     </div>
   </section>
-  <section class="iframe-maps">
+  <section class="iframe-maps" aria-label="Localização do Bar-Baridade no mapa">
     <div>
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d467688.89495119266!2d-46.5952992!3d-23.6824124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce448183a461d1%3A0x9ba94b08ff335bae!2zU8OjbyBQYXVsbywgU1A!5e0!3m2!1spt-BR!2sbr!4v1764451555763!5m2!1spt-BR!2sbr"
@@ -105,6 +106,8 @@ const images = [
         style="border: 0"
         allowfullscreen=""
         loading="lazy"
+        title="Localização do Bar-Baridade no Google Maps"
+        aria-label="Mapa mostrando a localização do Bar-Baridade em São Paulo"
         referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </section>
@@ -144,7 +147,7 @@ const images = [
       color: var(--white);
 
       h1 {
-        font-size: 80px;
+        font-size: 5rem;
         color: var(--white);
       }
 
@@ -157,7 +160,7 @@ const images = [
       }
 
       p {
-        font-size: 18px;
+        font-size: 1.125rem;
       }
     }
   }
@@ -195,7 +198,7 @@ const images = [
       align-items: center;
 
       h2 {
-        font-size: 48px;
+        font-size: 3rem;
         font-weight: 600;
         text-transform: uppercase;
         color: var(--primary-color);
@@ -203,7 +206,7 @@ const images = [
       }
 
       h3 {
-        font-size: 32px;
+        font-size: 2rem;
         font-weight: 600;
         color: var(--white);
         margin-bottom: 70px;
@@ -223,7 +226,7 @@ const images = [
 
           .calendario-banda-title {
             font-weight: 600;
-            font-size: 20px;
+            font-size: 1.25rem;
 
             span {
               text-decoration: underline;
@@ -257,11 +260,11 @@ const images = [
         padding: 0 16px;
 
         h1 {
-          font-size: 48px;
+          font-size: 3rem;
         }
 
         p {
-          font-size: 16px;
+          font-size: 1rem;
         }
       }
     }
@@ -279,11 +282,11 @@ const images = [
         padding: 64px 16px;
 
         h2 {
-          font-size: 36px;
+          font-size: 2.25rem;
         }
 
         h3 {
-          font-size: 24px;
+          font-size: 1.5rem;
         }
       }
     }
@@ -300,11 +303,11 @@ const images = [
         gap: 32px;
 
         h1 {
-          font-size: 32px;
+          font-size: 2rem;
         }
 
         p {
-          font-size: 14px;
+          font-size: 0.875rem;
         }
       }
     }
@@ -312,11 +315,11 @@ const images = [
     #calendario-section {
       .text-calendario {
         h2 {
-          font-size: 24px;
+          font-size: 1.5rem;
         }
 
         h3 {
-          font-size: 18px;
+          font-size: 1.125rem;
         }
 
         .bandas-calendario {
@@ -327,11 +330,11 @@ const images = [
 
             .calendario-banda-title {
               font-weight: 600;
-              font-size: 16px;
+              font-size: 1rem;
             }
 
             .calendario-banda-desc {
-              font-size: 14px;
+              font-size: 0.875rem;
             }
           }
         }

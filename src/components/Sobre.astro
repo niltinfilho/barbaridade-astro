@@ -8,23 +8,23 @@ import BtnDefault from "./shared/BtnDefault.astro";
 const images = [
   {
     imageUrl: `${imgAbout1.src}`,
-    description: "abc",
+    description: "Foto do ambiente do Bar-Baridade",
   },
   {
     imageUrl: `${imgAbout2.src}`,
-    description: "abc",
+    description: "Foto do ambiente do Bar-Baridade",
   },
   {
     imageUrl: `${imgAbout3.src}`,
-    description: "abc",
+    description: "Foto do ambiente do Bar-Baridade",
   },
 ];
 ---
 
-<section id="about">
+<section id="about" aria-labelledby="sobre-titulo">
   <div class="container flex about-section">
     <div class="about-texts">
-      <h2>Desde 2015</h2>
+      <h2 id="sobre-titulo">Desde 2015</h2>
       <p>
         O Bar-Baridade foi fundado em 2015, tornando-se rapidamente um ponto de
         encontro tradicional para amigos e famílias. Com um ambiente
@@ -39,7 +39,7 @@ const images = [
       </p>
       <BtnDefault label="Como chegar" ref="#footer" />
     </div>
-    <div class="swiper swiper-about-section">
+    <div class="swiper swiper-about-section" role="region" aria-label="Galeria de fotos do Bar-Baridade" aria-live="polite">
       <div class="swiper-wrapper">
         {
           images.map((img) => (
@@ -67,7 +67,7 @@ const images = [
         text-align: center;
 
         h2 {
-          font-size: 48px;
+          font-size: 3rem;
           font-weight: 600;
           text-transform: uppercase;
           margin-bottom: 16px;
@@ -106,7 +106,7 @@ const images = [
           width: 100%;
 
           h2 {
-            font-size: 36px;
+            font-size: 2.25rem;
           }
         }
       }
@@ -122,7 +122,7 @@ const images = [
 
         .about-texts {
           h2 {
-            font-size: 24px;
+            font-size: 1.5rem;
           }
         }
 

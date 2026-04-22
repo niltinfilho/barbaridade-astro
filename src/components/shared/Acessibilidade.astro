@@ -1,0 +1,506 @@
+---
+// Componente de Acessibilidade - Widget flutuante
+---
+
+<div id="acessibilidade-widget" role="region" aria-label="Painel de Acessibilidade">
+  <button
+    id="btn-acessibilidade"
+    aria-label="Abrir painel de acessibilidade"
+    aria-expanded="false"
+    aria-controls="painel-acessibilidade"
+    title="Opções de Acessibilidade"
+    tabindex="0"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="4" r="1.5"/>
+      <path d="M9 9h6l-1 7-2 4-2-4-1-7"/>
+      <path d="M6.5 13.5c1.5 0 2.5.5 5.5.5s4-.5 5.5-.5"/>
+    </svg>
+    <span class="sr-only">Acessibilidade</span>
+  </button>
+
+  <div
+    id="painel-acessibilidade"
+    role="dialog"
+    aria-labelledby="painel-titulo"
+    aria-modal="false"
+    hidden
+  >
+    <div class="painel-header">
+      <h2 id="painel-titulo">Acessibilidade</h2>
+      <button
+        id="btn-fechar-painel"
+        aria-label="Fechar painel de acessibilidade"
+        title="Fechar"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Tamanho da Fonte -->
+    <div class="painel-grupo" role="group" aria-labelledby="label-fonte">
+      <p class="painel-label" id="label-fonte">Tamanho do Texto</p>
+      <div class="painel-controles">
+        <button id="btn-fonte-diminuir" aria-label="Diminuir tamanho do texto" class="btn-controle">A-</button>
+        <span id="fonte-valor" aria-live="polite" aria-atomic="true">100%</span>
+        <button id="btn-fonte-aumentar" aria-label="Aumentar tamanho do texto" class="btn-controle">A+</button>
+        <button id="btn-fonte-reset" aria-label="Resetar tamanho do texto" title="Padrão" class="btn-controle btn-reset">↺</button>
+      </div>
+    </div>
+
+    <!-- Contraste -->
+    <div class="painel-grupo" role="group" aria-labelledby="label-contraste">
+      <p class="painel-label" id="label-contraste">Contraste</p>
+      <div class="painel-botoes">
+        <button id="btn-contraste-normal" aria-label="Contraste normal" aria-pressed="true" class="btn-opcao ativo">Normal</button>
+        <button id="btn-contraste-alto" aria-label="Alto contraste" aria-pressed="false" class="btn-opcao">Alto contraste</button>
+      </div>
+    </div>
+
+    <!-- Espaçamento de Letras -->
+    <div class="painel-grupo" role="group" aria-labelledby="label-espacamento">
+      <p class="painel-label" id="label-espacamento">Espaçamento de Letras</p>
+      <div class="painel-botoes">
+        <button id="btn-espacamento-normal" aria-label="Espaçamento normal" aria-pressed="true" class="btn-opcao ativo">Normal</button>
+        <button id="btn-espacamento-medio" aria-label="Espaçamento médio" aria-pressed="false" class="btn-opcao">Espaçado</button>
+      </div>
+    </div>
+
+    <!-- Cursor grande -->
+    <div class="painel-grupo" role="group" aria-labelledby="label-cursor">
+      <p class="painel-label" id="label-cursor">Cursor</p>
+      <div class="painel-botoes">
+        <button id="btn-cursor-normal" aria-label="Cursor normal" aria-pressed="true" class="btn-opcao ativo">Normal</button>
+        <button id="btn-cursor-grande" aria-label="Cursor grande" aria-pressed="false" class="btn-opcao">Grande</button>
+      </div>
+    </div>
+
+    <!-- Destaque de links -->
+    <div class="painel-grupo" role="group" aria-labelledby="label-links">
+      <p class="painel-label" id="label-links">Destacar Links</p>
+      <div class="painel-botoes">
+        <button id="btn-links-off" aria-label="Links sem destaque" aria-pressed="true" class="btn-opcao ativo">Desligado</button>
+        <button id="btn-links-on" aria-label="Links com destaque" aria-pressed="false" class="btn-opcao">Ligado</button>
+      </div>
+    </div>
+
+    <!-- Animações -->
+    <div class="painel-grupo" role="group" aria-labelledby="label-animacoes">
+      <p class="painel-label" id="label-animacoes">Animações</p>
+      <div class="painel-botoes">
+        <button id="btn-anim-on" aria-label="Animações ativadas" aria-pressed="true" class="btn-opcao ativo">Ativadas</button>
+        <button id="btn-anim-off" aria-label="Animações desativadas" aria-pressed="false" class="btn-opcao">Desativadas</button>
+      </div>
+    </div>
+
+    <button id="btn-resetar-tudo" class="btn-resetar-tudo" aria-label="Resetar todas as configurações de acessibilidade">
+      Resetar todas as configurações
+    </button>
+  </div>
+</div>
+
+<style>
+  /* Screen reader only */
+  :global(.sr-only) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Widget fixo — usa px para que o widget em si NÃO escale junto com a página,
+     mantendo usabilidade mesmo em fontes muito grandes */
+  #acessibilidade-widget {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 99998;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px; /* tamanho fixo intencional — o widget não deve escalar */
+  }
+
+  #btn-acessibilidade {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #eab633; /* fixo para não ser afetado por alto contraste */
+    color: #000;
+    border: 2px solid #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  #btn-acessibilidade:hover,
+  #btn-acessibilidade:focus-visible {
+    background-color: #000;
+    color: #eab633;
+    transform: scale(1.08);
+    outline: 3px solid #eab633;
+    outline-offset: 3px;
+  }
+
+  #painel-acessibilidade {
+    position: absolute;
+    bottom: 68px;
+    right: 0;
+    width: 300px;
+    background: #1a1a1a;
+    border: 1px solid #eab633;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #painel-acessibilidade[hidden] {
+    display: none;
+  }
+
+  .painel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 12px;
+  }
+
+  .painel-header h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #eab633;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  #btn-fechar-painel {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+  }
+
+  #btn-fechar-painel:hover,
+  #btn-fechar-painel:focus-visible {
+    color: #fff;
+    outline: 2px solid #eab633;
+    outline-offset: 2px;
+  }
+
+  .painel-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .painel-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 0;
+  }
+
+  .painel-controles {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #fonte-valor {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .btn-controle {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    min-width: 36px;
+  }
+
+  .btn-controle:hover,
+  .btn-controle:focus-visible {
+    background: #eab633;
+    color: #000;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  .btn-reset {
+    font-size: 16px;
+    padding: 4px 10px;
+  }
+
+  .painel-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .btn-opcao {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    color: #ccc;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .btn-opcao:hover,
+  .btn-opcao:focus-visible {
+    background: #444;
+    color: #fff;
+    outline: 2px solid #eab633;
+    outline-offset: 2px;
+  }
+
+  .btn-opcao.ativo,
+  .btn-opcao[aria-pressed="true"] {
+    background: #eab633;
+    color: #000;
+    border-color: #eab633;
+    font-weight: 700;
+  }
+
+  .btn-resetar-tudo {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s, color 0.2s;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 4px;
+  }
+
+  .btn-resetar-tudo:hover,
+  .btn-resetar-tudo:focus-visible {
+    background: #2d2d2d;
+    color: #fff;
+    outline: 2px solid #eab633;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 720px) {
+    #acessibilidade-widget {
+      bottom: 16px;
+      right: 16px;
+    }
+
+    #painel-acessibilidade {
+      width: 272px;
+    }
+  }
+</style>
+
+<script>
+  const widget = document.getElementById('acessibilidade-widget');
+  const btnAbrir = document.getElementById('btn-acessibilidade');
+  const painel = document.getElementById('painel-acessibilidade');
+  const btnFechar = document.getElementById('btn-fechar-painel');
+
+  // ── Abrir/fechar painel ──
+  function abrirPainel() {
+    painel?.removeAttribute('hidden');
+    btnAbrir?.setAttribute('aria-expanded', 'true');
+    btnFechar?.focus();
+  }
+
+  function fecharPainel() {
+    painel?.setAttribute('hidden', '');
+    btnAbrir?.setAttribute('aria-expanded', 'false');
+    btnAbrir?.focus();
+  }
+
+  btnAbrir?.addEventListener('click', () => {
+    painel?.hasAttribute('hidden') ? abrirPainel() : fecharPainel();
+  });
+  btnFechar?.addEventListener('click', fecharPainel);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && painel && !painel.hasAttribute('hidden')) {
+      fecharPainel();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (widget && !widget.contains(e.target as Node) && painel && !painel.hasAttribute('hidden')) {
+      fecharPainel();
+    }
+  });
+
+  // ── Utilitário: setar aria-pressed e classe ativo em grupo ──
+  function setAtivo(btnId: string, grupoIds: string[]) {
+    grupoIds.forEach(id => {
+      const el = document.getElementById(id);
+      el?.setAttribute('aria-pressed', id === btnId ? 'true' : 'false');
+      id === btnId ? el?.classList.add('ativo') : el?.classList.remove('ativo');
+    });
+  }
+
+  // ── FONTE ──
+  let fonteAtual = 100;
+  const fonteValorEl = document.getElementById('fonte-valor');
+
+  function atualizarFonte(valor: number) {
+    fonteAtual = Math.min(150, Math.max(70, valor));
+    document.documentElement.style.fontSize = fonteAtual + '%';
+    if (fonteValorEl) fonteValorEl.textContent = fonteAtual + '%';
+    localStorage.setItem('a11y-fonte', String(fonteAtual));
+  }
+
+  document.getElementById('btn-fonte-aumentar')?.addEventListener('click', () => atualizarFonte(fonteAtual + 10));
+  document.getElementById('btn-fonte-diminuir')?.addEventListener('click', () => atualizarFonte(fonteAtual - 10));
+  document.getElementById('btn-fonte-reset')?.addEventListener('click', () => atualizarFonte(100));
+
+  // ── CONTRASTE ──
+  const botoesContraste = ['btn-contraste-normal', 'btn-contraste-alto'];
+
+  function setContraste(modo: string) {
+    document.documentElement.classList.remove('contraste-alto');
+    if (modo === 'alto') {
+      document.documentElement.classList.add('contraste-alto');
+      setAtivo('btn-contraste-alto', botoesContraste);
+    } else {
+      setAtivo('btn-contraste-normal', botoesContraste);
+    }
+    localStorage.setItem('a11y-contraste', modo);
+  }
+
+  document.getElementById('btn-contraste-normal')?.addEventListener('click', () => setContraste('normal'));
+  document.getElementById('btn-contraste-alto')?.addEventListener('click', () => setContraste('alto'));
+
+  // ── ESPAÇAMENTO ──
+  const botoesEspacamento = ['btn-espacamento-normal', 'btn-espacamento-medio'];
+
+  function setEspacamento(modo: string) {
+    document.documentElement.classList.remove('espacamento-medio');
+    if (modo === 'medio') {
+      document.documentElement.classList.add('espacamento-medio');
+      setAtivo('btn-espacamento-medio', botoesEspacamento);
+    } else {
+      setAtivo('btn-espacamento-normal', botoesEspacamento);
+    }
+    localStorage.setItem('a11y-espacamento', modo);
+  }
+
+  document.getElementById('btn-espacamento-normal')?.addEventListener('click', () => setEspacamento('normal'));
+  document.getElementById('btn-espacamento-medio')?.addEventListener('click', () => setEspacamento('medio'));
+
+  // ── CURSOR ──
+  const botoesCursor = ['btn-cursor-normal', 'btn-cursor-grande'];
+
+  function setCursor(modo: string) {
+    document.documentElement.classList.remove('cursor-grande');
+    if (modo === 'grande') {
+      document.documentElement.classList.add('cursor-grande');
+      setAtivo('btn-cursor-grande', botoesCursor);
+    } else {
+      setAtivo('btn-cursor-normal', botoesCursor);
+    }
+    localStorage.setItem('a11y-cursor', modo);
+  }
+
+  document.getElementById('btn-cursor-normal')?.addEventListener('click', () => setCursor('normal'));
+  document.getElementById('btn-cursor-grande')?.addEventListener('click', () => setCursor('grande'));
+
+  // ── DESTACAR LINKS ──
+  const botoesLinks = ['btn-links-off', 'btn-links-on'];
+
+  function setLinks(modo: string) {
+    document.documentElement.classList.remove('destacar-links');
+    if (modo === 'on') {
+      document.documentElement.classList.add('destacar-links');
+      setAtivo('btn-links-on', botoesLinks);
+    } else {
+      setAtivo('btn-links-off', botoesLinks);
+    }
+    localStorage.setItem('a11y-links', modo);
+  }
+
+  document.getElementById('btn-links-off')?.addEventListener('click', () => setLinks('off'));
+  document.getElementById('btn-links-on')?.addEventListener('click', () => setLinks('on'));
+
+  // ── ANIMAÇÕES ──
+  const botoesAnim = ['btn-anim-on', 'btn-anim-off'];
+
+  function setAnimacoes(modo: string) {
+    document.documentElement.classList.remove('sem-animacoes');
+    if (modo === 'off') {
+      document.documentElement.classList.add('sem-animacoes');
+      setAtivo('btn-anim-off', botoesAnim);
+    } else {
+      setAtivo('btn-anim-on', botoesAnim);
+    }
+    localStorage.setItem('a11y-animacoes', modo);
+  }
+
+  document.getElementById('btn-anim-on')?.addEventListener('click', () => setAnimacoes('on'));
+  document.getElementById('btn-anim-off')?.addEventListener('click', () => setAnimacoes('off'));
+
+  // ── RESETAR TUDO ──
+  document.getElementById('btn-resetar-tudo')?.addEventListener('click', () => {
+    atualizarFonte(100);
+    setContraste('normal');
+    setEspacamento('normal');
+    setCursor('normal');
+    setLinks('off');
+    setAnimacoes('on');
+    ['a11y-fonte','a11y-contraste','a11y-espacamento','a11y-cursor','a11y-links','a11y-animacoes']
+      .forEach(k => localStorage.removeItem(k));
+  });
+
+  // ── RESTAURAR PREFERÊNCIAS SALVAS ──
+  (function restaurar() {
+    const fonte = localStorage.getItem('a11y-fonte');
+    if (fonte) atualizarFonte(parseInt(fonte));
+
+    const contraste = localStorage.getItem('a11y-contraste');
+    if (contraste && contraste !== 'normal') setContraste(contraste);
+
+    const espacamento = localStorage.getItem('a11y-espacamento');
+    if (espacamento && espacamento !== 'normal') setEspacamento(espacamento);
+
+    const cursor = localStorage.getItem('a11y-cursor');
+    if (cursor && cursor !== 'normal') setCursor(cursor);
+
+    const links = localStorage.getItem('a11y-links');
+    if (links && links !== 'off') setLinks(links);
+
+    const animacoes = localStorage.getItem('a11y-animacoes');
+    if (animacoes && animacoes !== 'on') setAnimacoes(animacoes);
+  })();
+</script>

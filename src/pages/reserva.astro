@@ -10,15 +10,15 @@ import Menu from "../components/Menu.astro";
     textTitle="Faça sua <span>reserva</span> agora"
     textDescription="No Bar Baridade, cada mesa é um convite pra viver uma experiência única: drinks autorais, boa música e aquele clima que transforma qualquer quinta em sexta."
   />
-  <section id="reserva-section">
+  <section id="reserva-section" aria-labelledby="reserva-titulo">
     <div class="container flex form-wrapper">
       <div class="img-form"></div>
       <div class="form-content">
-        <h2>Reserve sua mesa</h2>
+        <h2 id="reserva-titulo">Reserve sua mesa</h2>
         <p>
           Porque algumas noites merecem ser planejadas (e brindadas com estilo).
         </p>
-        <form class="flex" id="form">
+        <form class="flex" id="form" novalidate aria-label="Formulário de reserva de mesa">
           <div>
             <label for="name">Nome completo*</label>
             <input
@@ -27,6 +27,7 @@ import Menu from "../components/Menu.astro";
               id="name"
               placeholder="Pra gente te chamar do jeito certo (e preparar seu lugar com carinho)"
               class="inputs required"
+              aria-required="true"
             />
             <span class="span-required">
               O nome deve ter no mínimo 3 caracteres
@@ -40,6 +41,7 @@ import Menu from "../components/Menu.astro";
               id="telefone"
               placeholder="Caso precise confirmar ou ajustar o horário do seu brinde"
               class="inputs required"
+              aria-required="true"
             />
             <span class="span-required">
               O telefone deve ter no mínimo 8 caracteres
@@ -53,6 +55,7 @@ import Menu from "../components/Menu.astro";
               id="email"
               placeholder="Pra enviar a confirmação da reserva"
               class="inputs required"
+              aria-required="true"
             />
             <span class="span-required"> O e-mail deve ser válido </span>
           </div>
@@ -132,7 +135,7 @@ import Menu from "../components/Menu.astro";
         width: 50%;
 
         h2 {
-          font-size: 20px;
+          font-size: 1.25rem;
           font-weight: 600;
           margin-bottom: 12px;
         }
@@ -165,7 +168,7 @@ import Menu from "../components/Menu.astro";
               border: 2px solid var(--medium-grey);
               border-radius: 12px;
               background-color: var(--medium-grey);
-              font-size: 16px;
+              font-size: 1rem;
               font-family: Roboto;
             }
 
@@ -177,7 +180,7 @@ import Menu from "../components/Menu.astro";
               display: none;
               margin: 6px 0 0 3px;
               color: red;
-              font-size: 12px;
+              font-size: 0.75rem;
             }
 
             button {
@@ -189,7 +192,7 @@ import Menu from "../components/Menu.astro";
               color: var(--white);
               text-transform: uppercase;
               font-weight: 600;
-              font-size: 18px;
+              font-size: 1.125rem;
               font-family: Roboto;
               transition: all 0.2s;
               cursor: pointer;
@@ -278,11 +281,11 @@ import Menu from "../components/Menu.astro";
 
             div {
               label {
-                font-size: 14px;
+                font-size: 0.875rem;
               }
 
               input {
-                font-size: 12px;
+                font-size: 0.75rem;
               }
 
               span {
@@ -290,7 +293,7 @@ import Menu from "../components/Menu.astro";
               }
 
               button {
-                font-size: 14px;
+                font-size: 0.875rem;
               }
             }
           }

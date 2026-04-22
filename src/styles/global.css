@@ -24,10 +24,295 @@ html {
   background-color: var(--secondary-color);
   scroll-behavior: smooth;
   font-family: Roboto;
+  /* font-size base para escala rem — 1rem = 16px por padrão */
+  font-size: 100%;
 }
 
-/* GLOBAL STYLES */
+/* ===========================
+   ACESSIBILIDADE - SKIP NAV
+   =========================== */
+.skip-nav {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--primary-color);
+  color: #000;
+  font-weight: 700;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 8px 8px;
+  z-index: 99999;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: top 0.2s;
+}
 
+.skip-nav:focus {
+  top: 0;
+}
+
+/* ===========================
+   ACESSIBILIDADE - FOCUS VISIBLE
+   =========================== */
+:focus-visible {
+  outline: 3px solid var(--primary-color) !important;
+  outline-offset: 3px !important;
+  border-radius: 4px;
+}
+
+/* ===========================
+   ACESSIBILIDADE - ALTO CONTRASTE
+   Estratégia: paleta preto/branco/amarelo com regras
+   específicas para cada contexto (fundo claro, fundo escuro,
+   cards, botões, hovers) — sem !important genérico em color
+   para não conflitar com hover states.
+   =========================== */
+
+/* Variáveis de contraste alto */
+html.contraste-alto {
+  --primary-color: #ffff00;
+  --secondary-color: #000000;
+  --white: #ffffff;
+  --dark-grey: #ffffff;
+  --medium-grey: #cccccc;
+  --light-grey: #dddddd;
+}
+
+html.contraste-alto body {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+/* Header */
+html.contraste-alto header {
+  background-color: #000 !important;
+  border-bottom: 2px solid #ffff00;
+}
+
+html.contraste-alto header a {
+  color: #fff !important;
+}
+
+html.contraste-alto header a:hover {
+  color: #ffff00 !important;
+}
+
+/* Todas as sections e footer → fundo escuro */
+html.contraste-alto section {
+  background-color: #111 !important;
+}
+
+html.contraste-alto footer {
+  background-color: #000 !important;
+}
+
+/* Textos genéricos */
+html.contraste-alto h1,
+html.contraste-alto h2,
+html.contraste-alto h3,
+html.contraste-alto h4,
+html.contraste-alto p,
+html.contraste-alto li,
+html.contraste-alto address {
+  color: #fff !important;
+}
+
+/* Spans que são destaques de data/título no calendário */
+html.contraste-alto span {
+  color: #ffff00 !important;
+}
+
+/* Links em geral */
+html.contraste-alto a {
+  color: #ffff00 !important;
+}
+
+html.contraste-alto a:hover {
+  color: #fff !important;
+  text-decoration: underline !important;
+}
+
+/* ── BOTÕES em alto contraste ── */
+/* btn-primary: amarelo com texto preto; hover → branco com texto preto */
+html.contraste-alto .btn-primary {
+  background-color: #ffff00 !important;
+  color: #000 !important;
+  border: 2px solid #fff !important;
+}
+
+html.contraste-alto .btn-primary:hover {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+/* btn-secondary: branco com texto preto; hover → amarelo com texto preto */
+html.contraste-alto .btn-secondary {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 2px solid #ffff00 !important;
+}
+
+html.contraste-alto .btn-secondary:hover {
+  background-color: #ffff00 !important;
+  color: #000 !important;
+}
+
+/* btn-tertiary = igual primary neste contexto */
+html.contraste-alto .btn-tertiary {
+  background-color: #ffff00 !important;
+  color: #000 !important;
+  border: 2px solid #fff !important;
+}
+
+html.contraste-alto .btn-tertiary:hover {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+/* ── CARDS do menu (swiper-slide div) ── */
+/* Os cards usam background var(--secondary-color) que vira #000;
+   forçamos cinza escuro com borda para diferenciar do fundo */
+html.contraste-alto .swiper-slide > div,
+html.contraste-alto .swiper-slide div {
+  background-color: #222 !important;
+  border: 1px solid #ffff00 !important;
+  color: #fff !important;
+}
+
+html.contraste-alto .swiper-slide h3,
+html.contraste-alto .swiper-slide p {
+  color: #fff !important;
+}
+
+/* ── Seção "Sobre" tem fundo branco → inverter para escuro ── */
+html.contraste-alto #about {
+  background-color: #111 !important;
+}
+
+html.contraste-alto #about h2,
+html.contraste-alto #about p {
+  color: #fff !important;
+}
+
+/* ── Seção "Menu" tem fundo --primary-color (amarelo) ── */
+html.contraste-alto #menu {
+  background-color: #111 !important;
+}
+
+html.contraste-alto #menu h2 {
+  color: #ffff00 !important;
+}
+
+html.contraste-alto #menu p {
+  color: #fff !important;
+}
+
+/* ── Seção de calendário ── */
+html.contraste-alto .text-calendario {
+  background-color: #111 !important;
+}
+
+/* ── Rodapé CTA ── */
+html.contraste-alto .cta-footer {
+  background-color: #000 !important;
+  background-image: none !important;
+  border: 2px solid #ffff00;
+}
+
+/* ── Info footer ── */
+html.contraste-alto .info-footer {
+  background-color: #000 !important;
+}
+
+/* ── Formulários ── */
+html.contraste-alto input,
+html.contraste-alto select,
+html.contraste-alto textarea {
+  background-color: #111 !important;
+  color: #fff !important;
+  border: 2px solid #ffff00 !important;
+}
+
+html.contraste-alto label {
+  color: #fff !important;
+}
+
+/* ── Imagens: leve boost de contraste ── */
+html.contraste-alto img {
+  filter: contrast(1.15) brightness(1.05);
+}
+
+/* ── Iframe do mapa ── */
+html.contraste-alto .iframe-maps {
+  background-color: #000 !important;
+}
+
+/* ── Widget de acessibilidade permanece com seu próprio estilo ── */
+html.contraste-alto #acessibilidade-widget {
+  filter: none !important;
+}
+
+/* ===========================
+   ACESSIBILIDADE - ESPAÇAMENTO MÉDIO
+   =========================== */
+html.espacamento-medio * {
+  letter-spacing: 0.06em !important;
+  word-spacing: 0.10em !important;
+}
+
+/* ===========================
+   ACESSIBILIDADE - CURSOR GRANDE
+   =========================== */
+html.cursor-grande,
+html.cursor-grande * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M8 2l16 12-7 2 4 10-4 2-4-10-5 5z' fill='%23000' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E") 4 4, auto !important;
+}
+
+/* ===========================
+   ACESSIBILIDADE - DESTACAR LINKS
+   =========================== */
+html.destacar-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+  background-color: rgba(234, 182, 51, 0.18) !important;
+  padding: 1px 4px !important;
+  border-radius: 3px !important;
+}
+
+/* ===========================
+   ACESSIBILIDADE - SEM ANIMAÇÕES
+   =========================== */
+html.sem-animacoes *,
+html.sem-animacoes *::before,
+html.sem-animacoes *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* Respeitar preferência do sistema operacional */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Respeitar preferência de alto contraste do sistema */
+@media (prefers-contrast: more) {
+  :root {
+    --primary-color: #ffff00;
+    --secondary-color: #000000;
+  }
+  body {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+}
+
+/* ===========================
+   GLOBAL STYLES
+   =========================== */
 .container {
   max-width: 1280px;
   margin: 0 auto;
@@ -51,17 +336,17 @@ html {
 
   .btn-default {
     border-radius: 8px;
-    padding: 12px 18px;
+    padding: 0.75rem 1.125rem;
   }
 
   .btn-secondary {
     border-radius: 8px;
-    padding: 12px 18px;
+    padding: 0.75rem 1.125rem;
   }
 
   .btn-tertiary {
     border-radius: 8px;
-    padding: 12px 18px;
+    padding: 0.75rem 1.125rem;
   }
 }
 
