@@ -17,11 +17,8 @@ const { pageTitle } = Astro.props;
     <title>Bar-Baridade | {pageTitle}</title>
   </head>
   <body>
-    <a href="#conteudo-principal" class="skip-nav">Ir para o conteúdo principal</a>
     <Header />
-    <main id="conteudo-principal" tabindex="-1">
       <slot />
-    </main>
     <Footer />
     <Acessibilidade />
   </body>
