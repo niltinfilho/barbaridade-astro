@@ -15,21 +15,14 @@ const { pageTitle } = Astro.props;
     <link rel="icon" href=`${faviconBarBaridade.src}` />
     <meta name="generator" content={Astro.generator} />
     <title>Bar-Baridade | {pageTitle}</title>
-    <meta name="description" content="Bar-Baridade – O único lugar onde o charme é destilado. Drinks autorais, boa música e uma experiência inesquecível em São Paulo." />
   </head>
   <body>
-    <!-- Link de pular para conteúdo principal (acessibilidade por teclado) -->
-    <a href="#conteudo-principal" class="skip-nav">Pular para o conteúdo principal</a>
-
+    <a href="#conteudo-principal" class="skip-nav">Ir para o conteúdo principal</a>
     <Header />
-
     <main id="conteudo-principal" tabindex="-1">
       <slot />
     </main>
-
     <Footer />
-
-    <!-- Widget de Acessibilidade -->
     <Acessibilidade />
   </body>
 </html>

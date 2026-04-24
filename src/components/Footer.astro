@@ -7,8 +7,8 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <footer id="footer" role="contentinfo">
-  <section class="cta-footer" aria-labelledby="cta-footer-titulo">
-    <h2 id="cta-footer-titulo">Viva a experiência Bar-Baridade</h2>
+  <section class="cta-footer" aria-labelledby="cta-titulo">
+    <h2 id="cta-titulo">Viva a experiência Bar-Baridade</h2>
     <p>
       No Bar-Baridade, cada noite é um convite pra brindar o que a vida tem de
       melhor: boa música, bons drinks e boas risadas. Aqui, a sofisticação tem
@@ -16,60 +16,34 @@ const base = import.meta.env.BASE_URL;
     </p>
     <BtnDefault label="Fazer reserva agora" />
   </section>
-
-  <section class="info-footer container" aria-label="Informações do Bar-Baridade">
+  <section class="info-footer container">
     <div class="flex info-footer-top">
-      <img src={logoBarBaridade.src} alt="Logo Bar-Baridade" width="240" height="auto" />
-
-      <address aria-label="Informações de Contato">
+      <img src={logoBarBaridade.src} alt="Logo Bar-Baridade" />
+      <div>
         <h2>Informações de Contato</h2>
-        <ul role="list">
-          <li role="listitem">
-            <a
-              href="https://maps.google.com/?q=Av.+das+Boas+Noites+123+São+Paulo+SP"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Endereço: Av. das Boas Noites, 123, Bairro Alto da Lua, São Paulo – Abrir no Google Maps"
-              tabindex="0"
-            >
-              Av. das Boas Noites, 123 <br />
-              Bairro Alto da Lua, São Paulo – SP
-            </a>
+        <ul>
+          <li>
+            Av. das Boas Noites, 123 <br />
+            Bairro Alto da Lua, São Paulo – SP
           </li>
-          <li role="listitem">
-            <a href="tel:+5511999999999" aria-label="Telefone: (11) 99999-9999" tabindex="0">
-              (11) 99999-9999
-            </a>
-          </li>
-          <li role="listitem">
-            <a
-              href="https://instagram.com/bar_baridade.sp"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram: @bar_baridade.sp (abre em nova aba)"
-              tabindex="0"
-            >
-              @bar_baridade.sp
-            </a>
-          </li>
+          <li>(11) 99999-9999</li>
+          <li>@bar_baridade.sp</li>
         </ul>
-      </address>
-
-      <nav aria-label="Links importantes do rodapé">
+      </div>
+      <nav aria-label="Links do rodapé">
         <h2>Links Importantes</h2>
-        <ul role="list">
-          <li role="listitem"><a href={`${base}/sobre`} tabindex="0">Sobre</a></li>
-          <li role="listitem"><a href={`${base}/menu`} tabindex="0">Menu</a></li>
-          <li role="listitem"><a href={`${base}/calendario`} tabindex="0">Calendário</a></li>
-          <li role="listitem"><a href={`${base}/reserva`} tabindex="0">Fazer reserva</a></li>
+        <ul>
+          <li><a href={`${base}/sobre`}>Sobre</a></li>
+          <li><a href={`${base}/menu`}>Menu</a></li>
+          <li><a href={`${base}/calendario`}>Calendário</a></li>
+          <li><a href={`${base}/reserva`}>Fazer reserva</a></li>
         </ul>
       </nav>
     </div>
-
     <div class="flex info-footer-bottom">
       <p>&copy; 2026 Bar-Baridade. Todos os direitos reservados.</p>
       <p>
-        <a href="#" tabindex="0">Política de Privacidade</a> | <a href="#" tabindex="0">Termos de Uso</a>
+        <a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a>
       </p>
     </div>
   </section>
@@ -86,7 +60,7 @@ const base = import.meta.env.BASE_URL;
       text-align: center;
 
       h2 {
-        font-size: 3rem;
+        font-size: 48px;
         font-weight: 600;
         color: var(--white);
         margin-bottom: 16px;
@@ -119,12 +93,8 @@ const base = import.meta.env.BASE_URL;
 
         h2 {
           color: var(--white);
-          font-size: 1.25rem;
+          font-size: 20px;
           margin-bottom: 24px;
-        }
-
-        address {
-          font-style: normal;
         }
 
         ul {
@@ -133,7 +103,6 @@ const base = import.meta.env.BASE_URL;
             color: var(--white);
             transition: all 0.2s;
             padding: 8px 0;
-            display: block;
           }
 
           a:hover {
@@ -166,7 +135,7 @@ const base = import.meta.env.BASE_URL;
         padding: 64px 16px;
 
         h2 {
-          font-size: 2.25rem;
+          font-size: 36px;
         }
       }
 
@@ -182,7 +151,7 @@ const base = import.meta.env.BASE_URL;
           }
 
           h2 {
-            font-size: 1.125rem;
+            font-size: 18px;
           }
         }
 
@@ -197,7 +166,7 @@ const base = import.meta.env.BASE_URL;
     footer {
       .cta-footer {
         h2 {
-          font-size: 1.5rem;
+          font-size: 24px;
         }
 
         a {

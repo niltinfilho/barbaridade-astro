@@ -6,39 +6,23 @@ const base = import.meta.env.BASE_URL;
 
 <header role="banner">
   <div class="container flex">
-    <a
-      href={`${base}/`}
-      aria-label="Bar-Baridade – Página inicial"
-      tabindex="0"
-    >
-      <img src={logoBarBaridade.src} alt="Logo Bar-Baridade" width="240" height="auto" />
-    </a>
-
-    <nav class="nav" aria-label="Navegação principal" id="nav-principal">
-      <ul class="flex" role="list">
-        <li role="listitem"><a href={`${base}/`} tabindex="0">Início</a></li>
-        <li role="listitem"><a href={`${base}/sobre`} tabindex="0">Sobre o Bar</a></li>
-        <li role="listitem"><a href={`${base}/menu`} tabindex="0">Nosso Cardápio</a></li>
-        <li role="listitem"><a href={`${base}/calendario`} tabindex="0">Calendário de Eventos</a></li>
-        <li role="listitem">
+    <a href={`${base}/`} aria-label="Bar-Baridade – página inicial"><img src={logoBarBaridade.src} alt="Logo Bar-Baridade" /></a>
+    <nav class="nav" id="nav-principal" aria-label="Navegação principal">
+      <ul class="flex">
+        <li><a href={`${base}/`}>Início</a></li>
+        <li><a href={`${base}/sobre`}>Sobre o Bar</a></li>
+        <li><a href={`${base}/menu`}>Nosso Cardápio</a></li>
+        <li><a href={`${base}/calendario`}>Calendário de Eventos</a></li>
+        <li>
           <BtnDefault label="Faça uma reserva" className="nav-menu-button" />
         </li>
       </ul>
     </nav>
-
-    <button
-      class="btn-menu-hamburger"
-      id="btn-hamburger"
-      aria-label="Abrir menu de navegação"
-      aria-expanded="false"
-      aria-controls="nav-principal"
-      tabindex="0"
-    >
+    <button class="btn-menu-hamburger" id="btn-hamburger" onclick="openMenu()" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="nav-principal" type="button">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
-    </button>
-  </div>
+  </button>
 </header>
 
 <style>
@@ -80,11 +64,6 @@ const base = import.meta.env.BASE_URL;
 
       .btn-menu-hamburger {
         display: none;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-        border-radius: 6px;
 
         span {
           display: block;
@@ -169,31 +148,3 @@ const base = import.meta.env.BASE_URL;
     }
   }
 </style>
-
-<script>
-  const btn = document.getElementById('btn-hamburger');
-  const nav = document.querySelector('.nav');
-
-  function toggleMenu() {
-    if (nav && btn) {
-      const isOpen = nav.classList.toggle('open');
-      btn.setAttribute('aria-expanded', String(isOpen));
-      btn.setAttribute('aria-label', isOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
-    }
-  }
-
-  btn?.addEventListener('click', toggleMenu);
-
-  // Fechar menu ao pressionar ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav?.classList.contains('open') && btn) {
-      nav.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-      btn.setAttribute('aria-label', 'Abrir menu de navegação');
-      btn.focus();
-    }
-  });
-
-  // Compatibilidade com onclick inline legado
-  (window as any).openMenu = toggleMenu;
-</script>
