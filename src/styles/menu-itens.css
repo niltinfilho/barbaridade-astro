@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@layer components {
+  .menu-itens-section {
+    @apply container p-0 m-0 decoration-0 list-none box-border;
+
+    h2.title-category-menu-itens {
+      @apply text-5xl font-semibold text-center uppercase text-(--primary-color) mt-24 mx-0 mb-16;
+    }
+
+    .cards {
+      @apply grid grid-cols-3 gap-20;
+
+      .card {
+        @apply bg-(--secondary-color) rounded-2xl pt-3 px-3 pb-6 text-center text-(--white);
+
+        img.image-card-item-menu {
+          @apply w-full rounded-2xl;
+        }
+
+        h3.title-card-item-menu {
+          @apply font-semibold text-2xl tracking-tight mt-4 mx-0 mb-3;
+        }
+
+        p.text-card-item-menu {
+          @apply text-sm;
+        }
+      }
+    }
+  }
+}

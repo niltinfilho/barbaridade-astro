@@ -2,7 +2,6 @@
 import type { Categoria } from "@types";
 import Layout from "../layouts/Layout.astro";
 import HeroSubpages from "../components/shared/HeroSubpage.astro";
-import BtnDefault from "../components/shared/BtnDefault.astro";
 import { requester } from "../scripts/api/api.js";
 const categoriasItemMenu: Categoria[] = await requester(
   "/enums/categorias-item-menu",
@@ -14,8 +13,8 @@ const categoriasItemMenu: Categoria[] = await requester(
     textTitle="Nosso <span>Menu</span>/<span>Cardápio</span>"
     textDescription="Da coquetelaria autoral aos petiscos irresistíveis, tudo aqui foi feito pra combinar com boas conversas e risadas sinceras."
   />
-  <section id="menu-section">
-    <div class="categorias">
+  <section class="bg-(--white) py-24 px-0">
+    <div class="flex justify-center gap-10">
       <a class="btn-default btn-primary btn-category" id="todos">
         Todos os itens
       </a>
@@ -30,139 +29,8 @@ const categoriasItemMenu: Categoria[] = await requester(
         ))
       }
     </div>
-    <div class="menu-grid container"></div>
+    <div id="menu-itens-root" class="container grid gap-10 items-start"></div>
   </section>
-
-  <style>
-    #menu-section {
-      background-color: var(--white);
-      padding: 96px 0;
-
-      .categorias {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-      }
-
-      .menu-grid {
-        display: grid;
-        gap: 40px;
-        align-items: start;
-
-        .section {
-          h2 {
-            font-size: 48px;
-            font-weight: 600;
-            text-align: center;
-            text-transform: uppercase;
-            color: var(--primary-color);
-            margin: 96px 0 64px;
-          }
-
-          .cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 80px;
-
-            .card {
-              background: var(--secondary-color);
-              border-radius: 16px;
-              padding: 12px 12px 24px;
-              text-align: center;
-              color: white;
-
-              img {
-                width: 100%;
-                border-radius: 14px;
-              }
-
-              h3 {
-                font-weight: 600;
-                font-size: 24px;
-                letter-spacing: 0.2px;
-                margin: 16px 0 12px;
-              }
-
-              p {
-                font-size: 14px;
-              }
-            }
-          }
-        }
-
-        @media (max-width: 1280px) {
-          .menu-grid {
-            .section {
-              h2 {
-                font-size: 36px;
-                margin: 80px 0 64px;
-              }
-
-              .cards {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-
-                .card {
-                  h3 {
-                    font-size: 20px;
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        @media (max-width: 720px) {
-          .menu-grid {
-            gap: 24px;
-
-            .section {
-              h2 {
-                font-size: 24px;
-              }
-
-              .cards {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 40px;
-
-                .card {
-                  h3 {
-                    font-size: 18px;
-                  }
-
-                  p {
-                    font-size: 12px;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    @media (max-width: 1280px) {
-      #menu-section {
-        background-color: var(--white);
-        padding: 64px 16px;
-
-        .categorias {
-          flex-wrap: wrap;
-          gap: 24px;
-        }
-      }
-    }
-
-    @media (max-width: 720px) {
-      #menu-section {
-        .categorias {
-          gap: 16px;
-          font-size: 14px;
-        }
-      }
-    }
-  </style>
 </Layout>
 
 <script>
@@ -175,11 +43,11 @@ const categoriasItemMenu: Categoria[] = await requester(
   categoryButtons.forEach((button) => {
     button.addEventListener("click", async () => {
       const categoryValue = button.getAttribute("data-category");
-      if (categoryValue !== null) {
-        renderItems(await requester(`/menu-itens/categoria/${categoryValue}`));
-      } else {
+      if (categoryValue === null) {
         renderItems(await requester(`/menu-itens`));
+        return;
       }
+      renderItems(await requester(`/menu-itens/categoria/${categoryValue}`));
     });
   });
 </script>
